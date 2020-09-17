@@ -1,26 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Card, CardMedia, FormTitle, Header, Icon, SearchBar, CardContent, Heading, Paragraph, CardActions } from '@datapunt/asc-ui'
+import { PersonalLogin, ChevronRight } from '@datapunt/asc-assets'
+import React from 'react'
 
 function App() {
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header tall={false} title="Servicentrum Onderwijs" fullWidth={false} homeLink="/" />
+      <section style={{ padding: "1em" }}>
+        <FormTitle>Zoeken naar docent of school</FormTitle>
+        <SearchBar placeholder="Bijv. KvK, Naam of Schoolnaam" autoFocus onChange={(e) => {
+          handleSearchInput(e)
+        }} />
+        <div>
+          <Card maxWidth={450} horizontal>
+            <CardMedia maxWidth={100} backgroundColor="level2">
+              <Icon size={25}>
+                <PersonalLogin />
+              </Icon>
+            </CardMedia>
+            <CardContent>
+              <Heading as="h6">Ben Schuurmans</Heading>
+              <Paragraph>School: De Achterhoek</Paragraph>
+            </CardContent>
+            <CardActions>
+              <Icon size={15}>
+                <ChevronRight />
+              </Icon>
+            </CardActions>
+          </Card>
+          <Card maxWidth={450} horizontal>
+            <CardMedia maxWidth={100} backgroundColor="level2">
+              <Icon size={25}>
+                <PersonalLogin />
+              </Icon>
+            </CardMedia>
+            <CardContent>
+              <Heading as="h6">Ben Schuurmans</Heading>
+              <Paragraph>School: De Achterhoek</Paragraph>
+            </CardContent>
+            <CardActions>
+              <Icon size={15}>
+                <ChevronRight />
+              </Icon>
+            </CardActions>
+          </Card>
+        </div>
+      </section>
+
     </div>
-  );
+  )
 }
 
 export default App;
