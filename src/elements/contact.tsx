@@ -1,24 +1,20 @@
-import { Card, CardMedia, Icon, CardContent, Heading, Paragraph, CardActions } from '@datapunt/asc-ui'
-import { PersonalLogin, ChevronRight } from '@datapunt/asc-assets'
+import { Card, CardMedia, Icon, CardContent, Paragraph, CardActions, Image } from '@datapunt/asc-ui'
+import { ChevronRight } from '@datapunt/asc-assets'
 import React from 'react'
+import { Person } from '../shared/mock-person-service'
+import { Chance } from 'chance'
 
-export type ContactProps = {
-    key: string,
-    name: string,
-    school: string
-}
-
-export const Contact = ({name, school}: ContactProps) => {
+export const Contact = (person: Person) => {
+    const chance = new Chance()
     return (
-        <Card maxWidth={450} horizontal>
-            <CardMedia maxWidth={100} backgroundColor="level2">
-                <Icon size={25}>
-                    <PersonalLogin />
-                </Icon>
+        <Card horizontal>
+            <CardMedia maxWidth={60}>
+                <Image src={person.picture.thumbnail}/>
             </CardMedia>
             <CardContent>
-                <Heading as="h6">{name}</Heading>
-                <Paragraph>School: {school}</Paragraph>
+                <Paragraph><b>Naam:</b> {person.name.title} {person.name.first} {person.name.last}</Paragraph>
+                <Paragraph><b>School:</b> {chance.company()}</Paragraph>
+                <Paragraph><b>Telefoon:</b> {person.phone}</Paragraph>
             </CardContent>
             <CardActions>
                 <Icon size={15}>

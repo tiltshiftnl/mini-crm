@@ -1,58 +1,58 @@
 import { FormTitle, SearchBar } from '@datapunt/asc-ui'
 import React from 'react'
-import { Contact, ContactProps } from '../elements/contact'
-import { Chance } from 'chance'
+import { Contact } from '../elements/contact'
+import PersonService, { Person } from '../shared/mock-person-service'
 
-export type HomeProps = {
-    key: number
+type HomeState = {
+    contacts: Person[],
+    filteredContacts: Person[]
 }
-
 export class Home extends React.Component {
-    readonly state = {
-        contacts: []
-    }
-    elements: ContactProps[] = []
-    filter: string = ""
-    constructor(props: HomeProps) {
-        super(props)
-        const chance = new Chance()
-        var times = 10;
-        for(var i=0; i < times; i++){
-            this.elements.push({
-                key: chance.guid(),
-                name: chance.name(),
-                school: chance.company()
-            })
-        }
+    readonly state: HomeState = {
+        contacts: [],
+        filteredContacts: []
     }
 
-    componentDidMount(){
-        this.setState({contacts: this.elements})
+    personService: PersonService
+    filter: string = ""
+
+    constructor(props: any) {
+        super(props)
+        this.personService = new PersonService()
     }
-  
+
+    componentDidMount() {
+        this.personService.retrievePeople().then(results => {
+            this.setState({contacts: results, filteredContacts: results})
+          }
+        )
+    }
+
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let filteredContacts: ContactProps[] = this.elements
+        let filteredContacts: Person[] = this.state.contacts
         this.filter = e.target.value
         if (this.filter !== "") {
-            filteredContacts = this.elements.filter(contact => contact.name.includes(this.filter))
+            filteredContacts = this.state.contacts.filter(contact => contact.name.first.includes(this.filter))
         }
-  
+
         this.setState({
-            contacts: filteredContacts
+            filteredContacts: filteredContacts
         })
     }
-    
+
     render() {
         return (
             <section style={{ padding: "1em" }}>
-        <FormTitle>Zoeken naar docent of school</FormTitle>
-        <SearchBar placeholder="Bijv. KvK, Naam of Schoolnaam" autoFocus onChange={(e) => {
-          this.handleSearchInput(e)
-        }} />
-        {this.state.contacts.map((value: ContactProps) => (
-            <Contact key={value.key} name={value.name} school={value.school} />
-        ))}
-      </section>
+                <FormTitle>
+                    <span>Zoeken naar docent of school</span>
+                </FormTitle>
+                <SearchBar placeholder="Bijv. KvK, Naam of Schoolnaam" autoFocus onChange={(e) => {
+                    this.handleSearchInput(e)
+                }} />
+                {this.state.filteredContacts.map((value: Person) => (
+                    <Contact {...value} />
+                ))}
+            </section>
         )
     }
 }

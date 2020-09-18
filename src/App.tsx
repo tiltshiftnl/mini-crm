@@ -1,7 +1,7 @@
 import { Header } from '@datapunt/asc-ui'
 import React from 'react'
-import { Home } from './page/Home';
-
+import { Home } from './page/Home'
+import './App.scss'
 const App = () => {
   return (
     <div className="App">
@@ -11,4 +11,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default App
