@@ -13,7 +13,7 @@ export const SchoolCard = (school: School) => {
                 </CardMedia>
                 <CardContent>
                     <Paragraph><b>School:</b> {school.naam}</Paragraph>
-                    <Paragraph><b>Type:</b> {school.type}</Paragraph>
+                    <Paragraph><b>Denominatie:</b> {school.denominatie}</Paragraph>
                 </CardContent>
                 <CardActions>
                     <Icon size={15}>

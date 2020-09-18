@@ -3,7 +3,20 @@ import Configuration from "./configuration"
 export type School = {
     id: string,
     naam: string,
-    type: string
+    type: string,
+    location_lat: number,
+    location_long: number,
+    indexnaam: string,
+    slug: string,
+    principe?: string,
+    denominatie: string,
+    main_image_id?: string,
+    neemt_deel_aan_aanmeldprocedure?: string,
+    einddatum: string,
+    created: string,
+    afwijkend_tekstlabel?: string,
+    stedelijke_functie: string,
+    voorschools: string
 }
 
 type SchoolResponse = {
