@@ -1,19 +1,22 @@
 import { FormTitle, SearchBar } from '@datapunt/asc-ui'
 import React from 'react'
-import { Contact } from '../elements/contact'
+import { ContactCard } from '../elements/contact'
+import { SchoolCard } from '../elements/school'
 import PersonService, { Person } from '../shared/person-service'
 import SchoolService, { School } from '../shared/school-service'
 
 type HomeState = {
     contacts: Person[],
     filteredContacts: Person[],
-    schools: School[]
+    schools: School[],
+    filteredSchools: School[]
 }
 export class Home extends React.Component {
     readonly state: HomeState = {
         contacts: [],
         filteredContacts: [],
-        schools: []
+        schools: [],
+        filteredSchools: []
     }
     schoolService: SchoolService
     personService: PersonService
@@ -28,7 +31,7 @@ export class Home extends React.Component {
     componentDidMount() {
         this.schoolService.retrieveSchools().then((results: School[]) => {
             const tempschools = results
-            this.setState({ schools: results })
+            this.setState({ schools: results, filteredSchools: results })
             this.personService.retrievePeople().then(results => {
                 results.map((person: Person) => {
                     person.school = tempschools[Math.floor(Math.random() * tempschools.length)]
@@ -41,6 +44,7 @@ export class Home extends React.Component {
 
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         let filteredContacts: Person[] = this.state.contacts
+        let filteredSchools: School[] = this.state.schools
         this.filter = e.target.value.toLowerCase()
         if (this.filter !== "") {
             filteredContacts = this.state.contacts.filter(
@@ -57,10 +61,19 @@ export class Home extends React.Component {
                     return false
                 }
             )
+            filteredSchools = this.state.schools.filter(
+                school => {
+                    if (school.naam.toLowerCase().includes(this.filter)) {
+                        return true
+                    }
+                    return false
+                }
+            )
         }
 
         this.setState({
-            filteredContacts: filteredContacts
+            filteredContacts: filteredContacts,
+            filteredSchools: filteredSchools
         })
     }
 
@@ -74,7 +87,10 @@ export class Home extends React.Component {
                     this.handleSearchInput(e)
                 }} />
                 {this.state.filteredContacts.map((value: Person) => (
-                    <Contact key={value.login.uuid} {...value} />
+                    <ContactCard key={value.login.uuid} {...value} />
+                ))}
+                {this.state.filteredSchools.map((value: School) => (
+                    <SchoolCard key={value.id} {...value} />
                 ))}
             </section>
         )
