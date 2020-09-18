@@ -44,9 +44,15 @@ export class Home extends React.Component {
 
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         let filteredContacts: Person[] = this.state.contacts
-        this.filter = e.target.value
+        this.filter = e.target.value.toLowerCase()
         if (this.filter !== "") {
-            filteredContacts = this.state.contacts.filter(contact => contact.name.first.includes(this.filter))
+            filteredContacts = this.state.contacts.filter(
+                contact => {
+                    return contact.name.first.toLowerCase().includes(this.filter) ||
+                    contact.name.last.toLowerCase().includes(this.filter) ||
+                    contact.school ? contact.school!.naam.toLowerCase().includes(this.filter) : false
+                }
+            )
         }
 
         this.setState({
