@@ -28,18 +28,15 @@ export class Home extends React.Component {
     componentDidMount() {
         this.schoolService.retrieveSchools().then((results: School[]) => {
             const tempschools = results
-            this.setState({schools: results})
+            this.setState({ schools: results })
             this.personService.retrievePeople().then(results => {
                 results.map((person: Person) => {
                     person.school = tempschools[Math.floor(Math.random() * tempschools.length)]
                     return person
                 })
-                this.setState({contacts: results, filteredContacts: results})
-              }
-            )
-          }
-        )
-        
+                this.setState({ contacts: results, filteredContacts: results })
+            })
+        })
     }
 
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,9 +45,16 @@ export class Home extends React.Component {
         if (this.filter !== "") {
             filteredContacts = this.state.contacts.filter(
                 contact => {
-                    return contact.name.first.toLowerCase().includes(this.filter) ||
-                    contact.name.last.toLowerCase().includes(this.filter) ||
-                    contact.school ? contact.school!.naam.toLowerCase().includes(this.filter) : false
+                    if (contact.name.first.toLowerCase().includes(this.filter)) {
+                        return true
+                    }
+                    if (contact.name.last.toLowerCase().includes(this.filter)) {
+                        return true
+                    }
+                    if (contact.school && contact.school!.naam.toLowerCase().includes(this.filter)) {
+                        return true
+                    }
+                    return false
                 }
             )
         }
