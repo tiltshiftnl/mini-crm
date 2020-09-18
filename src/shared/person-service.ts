@@ -1,8 +1,11 @@
 import Configuration from "./configuration"
+import { School } from "./school-service"
 
 export type Person = {
-    key: string,
     gender: string,
+    login: {
+        uuid: string
+    },
     name: {
         title: string,
         first: string,
@@ -14,7 +17,8 @@ export type Person = {
         thumbnail: string
     },
     phone: string,
-    cell: string
+    cell: string,
+    school?: School
 }
 
 type Info = {
