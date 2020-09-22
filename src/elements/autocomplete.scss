@@ -1,0 +1,22 @@
+.autocomplete-items {
+   
+  div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-left: 1px solid #767676;
+    border-right: 1px solid #767676;
+  }
+  div:last-child {
+    border-bottom: 1px solid #767676;
+  }
+  div:hover {
+    /*when hovering an item:*/
+    background-color: whitesmoke;
+  }
+  .autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+  }
+}

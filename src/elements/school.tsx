@@ -13,7 +13,14 @@ export const SchoolCard = (school: School) => {
                 </CardMedia>
                 <CardContent>
                     <Paragraph><b>School:</b> {school.naam}</Paragraph>
-                    <Paragraph><b>Denominatie:</b> {school.denominatie}</Paragraph>
+                    <Paragraph><b>Adres:</b> {school.address}</Paragraph>
+                    <Paragraph><b>Type:</b> {school.school_type}</Paragraph>
+                    {school.lrkp_id &&
+                        <Paragraph><b>LRKP:</b> {school.lrkp_id}</Paragraph>
+                    }
+                    {school.brin &&
+                        <Paragraph><b>BRIN:</b> {school.brin}</Paragraph>
+                    }
                 </CardContent>
                 <CardActions>
                     <Icon size={15}>

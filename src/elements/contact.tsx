@@ -1,9 +1,9 @@
 import { Card, CardMedia, Icon, CardContent, Paragraph, CardActions } from '@datapunt/asc-ui'
 import { ChevronRight, Student } from '@datapunt/asc-assets'
 import React from 'react'
-import { Person } from '../shared/person-service'
 import './card.scss'
-export const ContactCard = (person: Person) => {
+import { Contact } from '../shared/contact-service'
+export const ContactCard = (contact: Contact) => {
     return (
         <div className={'contact-card'}>
             <Card horizontal>
@@ -12,12 +12,14 @@ export const ContactCard = (person: Person) => {
                     {/* <Image src={person.picture.thumbnail}/> */}
                 </CardMedia>
                 <CardContent>
-                    <Paragraph><b>Naam:</b> {person.name.first} {person.name.last}</Paragraph>
-                    {person.school &&
-                        <Paragraph><b>School:</b> {person.school.naam}</Paragraph>
+                    <Paragraph><b>Naam:</b> {contact.naam}</Paragraph>
+                    {contact.school &&
+                        <Paragraph><b>School:</b> {contact.school.naam}</Paragraph>
                     }
 
-                    <Paragraph><b>Telefoon:</b> {person.phone}</Paragraph>
+                    <Paragraph><b>Telefoon:</b> {contact.phone}</Paragraph>
+                    <Paragraph><b>Email:</b> {contact.email}</Paragraph>
+                    
                 </CardContent>
                 <CardActions>
                     <Icon size={15}>
