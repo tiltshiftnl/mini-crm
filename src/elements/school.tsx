@@ -12,7 +12,7 @@ export const SchoolCard = (school: School) => {
                     <Icon><Building /></Icon>
                 </CardMedia>
                 <CardContent>
-                    <Paragraph><b>School:</b> {school.naam}</Paragraph>
+                    <Paragraph><b>School:</b> {school.name}</Paragraph>
                     <Paragraph><b>Adres:</b> {school.address}</Paragraph>
                     <Paragraph><b>Type:</b> {school.school_type}</Paragraph>
                     {school.lrkp_id &&

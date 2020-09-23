@@ -1,7 +1,7 @@
 import { Button, SearchBar } from '@datapunt/asc-ui'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ContactCard } from '../elements/contact'
+import { ContactCard } from '../elements/contactcard'
 import ContactService, { Contact } from '../shared/contact-service'
 import './Contacts.scss'
 type ContactState = {
@@ -21,38 +21,15 @@ export class ContactPage extends React.Component {
         this.contactService = new ContactService()
     }
 
-    componentDidMount() {
-        // this.contactService.retrieveContacts().then(results => {
-        //     results.map((contact: Contact) => {
-        //         return contact
-        //     })
-        //     this.setState({ contacts: results, filteredContacts: results })
-        // })
-    }
-
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let filteredContacts: Contact[] = this.state.contacts
         this.filter = e.target.value.toLowerCase()
         if (this.filter !== "") {
-            filteredContacts = this.state.contacts.filter(
-                contact => {
-                    if (contact.naam.toLowerCase().includes(this.filter)) {
-                        return true
-                    }
-                    if (contact.naam.toLowerCase().includes(this.filter)) {
-                        return true
-                    }
-                    if (contact.school && contact.school!.naam.toLowerCase().includes(this.filter)) {
-                        return true
-                    }
-                    return false
-                }
-            )
+            this.contactService.searchContacts(this.filter).then((results: Contact[]) => {
+                this.setState({ contacts: results, filteredContacts: results })
+            })
+        } else {
+            this.setState({ contacts: [], filteredContacts: [] })
         }
-
-        this.setState({
-            filteredContacts: filteredContacts
-        })
     }
 
     render() {

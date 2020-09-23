@@ -1,12 +1,23 @@
+a {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
 .contact-card {
     padding: 1em;
     border: 1px solid #fff;
-    cursor: pointer;
 
     &:hover {
         border: 1px solid #ccc;
     }
 }
+.note-list {
+    padding: 2em;
+    p {
+        border-top: 1px solid #ccc;
+    }
+}
+
 .has-error {
     input {
         border: 1px solid #ec0000;

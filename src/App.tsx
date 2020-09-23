@@ -6,6 +6,7 @@ import { BrowserRouter, NavLink, Route, Switch } from 'react-router-dom'
 import { ContactPage } from './page/Contacts'
 import { SchoolPage } from './page/Schools'
 import { ContactForm } from './elements/contactform'
+import { ContactDetailForm } from './elements/contactdetailform'
 
 const App = () => {
   return (
@@ -18,18 +19,11 @@ const App = () => {
           <li className="menu-item-li"><NavLink className="menu-item" activeClassName="active" to="/contacts">Docenten</NavLink></li>
         </ul>
         <Switch>
-          <Route path="/schools">
-            <SchoolPage />
-          </Route>
-          <Route path="/contacts/new">
-            <ContactForm/>
-          </Route>
-          <Route path="/contacts">
-            <ContactPage />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
+          <Route path="/schools" component={SchoolPage}/>
+          <Route path="/contacts/new" component={ContactForm}/>
+          <Route path="/contact/:id/details" component={ContactDetailForm}/>
+          <Route path="/contacts" component={ContactPage} />
+          <Route path="/" component={HomePage} />
         </Switch>
       </BrowserRouter>
     </div>

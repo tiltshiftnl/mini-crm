@@ -1,9 +1,10 @@
 import { Card, CardContent, FormTitle, Label, Input, Button } from '@datapunt/asc-ui'
 import React from 'react'
-import { Contact } from '../shared/contact-service'
+import ContactService, { Contact } from '../shared/contact-service'
 import { School } from '../shared/school-service'
 import { Autocomplete } from './autocomplete'
 import './card.scss'
+import { FormErrors } from './formerrors'
 
 type ContactFormState = {
     nameValid: Boolean,
@@ -16,22 +17,6 @@ type ContactFormState = {
     phone: string,
     formErrors: { email: string, phone: string, name: string }
 }
-interface IFormErrors {
-    formErrors: { [key: string]: string }
-}
-
-const FormErrors: React.FunctionComponent<IFormErrors> = ({ formErrors }) =>
-    <div className='formErrors'>
-        {Object.keys(formErrors).map((fieldName, i) => {
-            if (formErrors[fieldName].length > 0) {
-                return (
-                    <p key={i}>{formErrors[fieldName]}</p>
-                )
-            } else {
-                return '';
-            }
-        })}
-    </div>
 
 export class ContactForm extends React.Component<{}> {
     readonly state: ContactFormState = {
@@ -45,24 +30,29 @@ export class ContactForm extends React.Component<{}> {
         phone: "",
         formErrors: { email: '', phone: '', name: '' },
     }
+
+    contactService: ContactService
     school: any
     constructor(props: any) {
         super(props)
         this.school = React.createRef()
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleUserInput = this.handleUserInput.bind(this)
+        this.contactService = new ContactService()
     }
 
     handleSubmit = (event: any) => {
         const postContact: Contact = {
             id: 0,
-            naam: this.state.name,
+            name: this.state.name,
             email: this.state.email,
             phone: this.state.phone,
             school_id: this.school.current.state.selected.id
         }
-        console.log(postContact)
         // TODO Send it to the server!
+        this.contactService.postContact(postContact).then((result: Contact) => {
+            console.log(result)
+        })
         event.preventDefault()
     }
 

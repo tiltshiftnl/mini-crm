@@ -1,30 +1,20 @@
 import Configuration from "./configuration"
+import { Contact } from "./contact-service"
 
-export type School = {
+export type Note = {
     id: number,
-    school_id: number,
-    lrkp_id?: string,
-    school_type: string,
-    brin?: string,
-    vestigingsnummer?: string,
-    name: string,
-    type: string,
-    address: string
+    note: string,
+    contact_id?: number
 }
 
-type SchoolResponse = {
-    results: School[]
-}
-
-class SchoolService {
-    schools: School[] = []
+class NoteService {
     config: Configuration
     constructor() {
         this.config = new Configuration()
     }
 
-    async retrieveSchools() {
-        return fetch(this.config.API_BASE_URL + "/schools")
+    async retrieveNotes(contact: Contact) {
+        return fetch(this.config.API_BASE_URL + "/notes/" + contact.id)
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -40,8 +30,15 @@ class SchoolService {
             })
     }
 
-    async searchSchools(search: string) {
-        return fetch(this.config.API_BASE_URL + "/schools/" + search)
+    async postNote(note: Note) {
+        return fetch(this.config.API_BASE_URL + "/note",
+            {
+                method: "POST",
+                body: JSON.stringify(note),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -49,8 +46,7 @@ class SchoolService {
                 return response.json()
             })
             .then(json => {
-                const items = json
-                return items
+                return json
             })
             .catch(error => {
                 this.handleError(error)
@@ -66,4 +62,4 @@ class SchoolService {
     }
 }
 
-export default SchoolService
+export default NoteService

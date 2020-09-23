@@ -28,7 +28,7 @@ export class Autocomplete extends React.Component<{id: string}> {
     }
 
     handleClick = (e: any) => {
-       this.setState({selected: e, schoolinput: e.naam, showOptions: false})
+       this.setState({selected: e, schoolinput: e.name, showOptions: false})
     }
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({schoolinput: e.target.value, showOptions: true})
@@ -50,7 +50,7 @@ export class Autocomplete extends React.Component<{id: string}> {
                 }} />{ this.state.showOptions &&
                 <div className="autocomplete-items">
                 {this.state.filteredSchools.map((value: School) => (
-                    <div key={value.id} onClick={() => this.handleClick(value)}>{value.naam}</div>
+                    <div key={value.id} onClick={() => this.handleClick(value)}>{value.name}</div>
                 ))}
                 </div>
                 }

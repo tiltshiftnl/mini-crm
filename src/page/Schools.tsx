@@ -22,7 +22,7 @@ export class SchoolPage extends React.Component {
 
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.filter = e.target.value.toLowerCase()
-        if (this.filter !== "" && this.filter.length > 4) {
+        if (this.filter !== "") {
             this.schoolService.searchSchools(this.filter).then((results: School[]) => {
                 this.setState({ schools: results, filteredSchools: results })
             })
