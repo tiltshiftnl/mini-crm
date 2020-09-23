@@ -7,7 +7,17 @@
         border: 1px solid #ccc;
     }
 }
+.has-error {
+    input {
+        border: 1px solid #ec0000;
+    }
+}
 
+.formErrors {
+    color: #ec0000;
+    font-style: italic;
+    font-size: 10px;
+}
 .submit-button {
     height: 44px;
     white-space: nowrap;

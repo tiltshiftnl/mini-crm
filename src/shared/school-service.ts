@@ -32,7 +32,6 @@ class SchoolService {
                 return response.json()
             })
             .then(json => {
-                console.log("Retrieved schools:")
                 const items = json
                 return items
             })
@@ -50,7 +49,6 @@ class SchoolService {
                 return response.json()
             })
             .then(json => {
-                console.log("Retrieved schools:")
                 const items = json
                 return items
             })
