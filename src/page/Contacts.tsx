@@ -35,10 +35,7 @@ export class ContactPage extends React.Component {
     render() {
         return (
             <section style={{ padding: "1em" }}>
-                {/* <FormTitle>
-                    <span>Zoeken naar docent</span>
-                </FormTitle> */}
-                <SearchBar placeholder="Docent..." autoFocus onChange={(e) => {
+                <SearchBar placeholder="Contact..." autoFocus onChange={(e) => {
                     this.handleSearchInput(e)
                 }} />
                 {this.state.filteredContacts.map((value: Contact) => (
@@ -46,7 +43,7 @@ export class ContactPage extends React.Component {
                 ))}
                 <p></p>
                 <Button variant="secondary" taskflow>
-                    <Link className="button-link" to="/contacts/new">Nieuwe docent</Link>
+                    <Link className="button-link" to="/contacts/new">Nieuw contact</Link>
                 </Button>
             </section>
         )

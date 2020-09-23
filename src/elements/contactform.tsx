@@ -109,12 +109,12 @@ export class ContactForm extends React.Component<{}> {
         return (
             <div className={'contact-card'}>
                 <form onSubmit={this.handleSubmit}>
-                    <FormTitle>Nieuwe docent aanmaken</FormTitle>
+                    <FormTitle>Nieuw contact aanmaken</FormTitle>
                     <Card horizontal>
                         <CardContent>
                             <div className={`${this.errorClass(this.state.formErrors.name)}`}>
                                 <Label htmlFor="name" label="Naam:" />
-                                <Input name="name" placeholder="Naam van de docent..." onChange={this.handleUserInput} value={this.state.name} required />
+                                <Input name="name" placeholder="Naam van het contact..." onChange={this.handleUserInput} value={this.state.name} required />
                             </div>
                             <div className={`${this.errorClass(this.state.formErrors.phone)}`}>
                                 <Label htmlFor="phone" label="Telefoonnummer:" />

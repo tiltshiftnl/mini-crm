@@ -16,7 +16,7 @@ const App = () => {
         <Header tall={false} title="Servicentrum Onderwijs" fullWidth={false} homeLink="/" />
         <ul className="menu-item-ul">
           <li className="menu-item-li"><NavLink className="menu-item" activeClassName="active" to="/schools">Scholen</NavLink></li>
-          <li className="menu-item-li"><NavLink className="menu-item" activeClassName="active" to="/contacts">Docenten</NavLink></li>
+          <li className="menu-item-li"><NavLink className="menu-item" activeClassName="active" to="/contacts">Contacten</NavLink></li>
         </ul>
         <Switch>
           <Route path="/schools" component={SchoolPage}/>
