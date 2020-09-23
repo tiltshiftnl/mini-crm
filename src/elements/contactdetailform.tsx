@@ -30,22 +30,22 @@ export class ContactDetailForm extends React.Component<RouteProps> {
     componentDidMount () {
         if (this.props.location && this.props.location.state && (this.props.location?.state as any).contact) {
             this.id = (this.props.location?.state as any).contact.id
-            this.setState({contact: (this.props.location?.state as any).contact})
-            // Get notes
-            this.noteService.retrieveNotes(this.state.contact as Contact).then((result: Note[]) => {
-                this.setState({notes: result})
-            })
-        } else {
-            this.id = (this.props as any).match.params.id
-            this.contactService.retrieveContact(this.id).then((result: Contact[]) => {
-                this.setState({contact: result[0]})
-                // Get notes
+            this.setState({contact: (this.props.location?.state as any).contact},() => {
                 this.noteService.retrieveNotes(this.state.contact as Contact).then((result: Note[]) => {
                     this.setState({notes: result})
                 })
             })
+        } else {
+            this.id = (this.props as any).match.params.id
+            this.contactService.retrieveContact(this.id).then((result: Contact[]) => {
+                this.setState({contact: result[0]}, () => {
+                    // Get notes
+                    this.noteService.retrieveNotes(this.state.contact as Contact).then((result: Note[]) => {
+                        this.setState({notes: result})
+                    })
+                })
+            })
         }
-
     }
     contactService: ContactService
     noteService: NoteService
