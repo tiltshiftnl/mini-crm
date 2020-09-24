@@ -1,6 +1,7 @@
 import { Button, TextArea } from '@datapunt/asc-ui'
 
 import React from 'react'
+import TextInput from '../elements/mentions/TextInput'
 import './Home.scss'
 export class HomePage extends React.Component {
     render() {
@@ -15,6 +16,7 @@ export class HomePage extends React.Component {
                         <Button variant="secondary" taskflow>Opslaan</Button>
                     </div>
                 </React.Fragment>
+                <TextInput/>
             </section>
         )
     }

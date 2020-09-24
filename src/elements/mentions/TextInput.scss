@@ -1,0 +1,16 @@
+.editor {
+    margin-top: 1em;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    cursor: text;
+    padding: 10px;
+    min-height: 400px;
+}
+
+.DraftEditor-editorContainer {
+    min-height: 400px;
+}
+
+.public-DraftEditor-content {
+    min-height: 400px;
+}
