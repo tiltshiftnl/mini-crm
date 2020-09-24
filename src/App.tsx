@@ -13,8 +13,9 @@ const App = () => {
     <div className="App">
       
       <BrowserRouter>
-        <Header tall={false} title="Servicentrum Onderwijs" fullWidth={false} homeLink="/" />
+        <Header tall={false} title="Servicentrum Onderwijs" fullWidth={false} homeLink="" />
         <ul className="menu-item-ul">
+          <li className="menu-item-li"><NavLink className="menu-item" exact activeClassName="active" to="/">Home</NavLink></li>
           <li className="menu-item-li"><NavLink className="menu-item" activeClassName="active" to="/schools">Scholen</NavLink></li>
           <li className="menu-item-li"><NavLink className="menu-item" activeClassName="active" to="/contacts">Contacten</NavLink></li>
         </ul>

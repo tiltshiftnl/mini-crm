@@ -1,0 +1,12 @@
+.button-bar {
+    position: relative;
+    padding-top: 1rem;
+    display: flex;
+    > * {
+        margin-right: 5px;
+    }
+    
+}
+textarea {
+    height: auto !important;
+}
