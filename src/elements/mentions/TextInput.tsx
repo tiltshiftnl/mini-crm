@@ -1,24 +1,28 @@
 import React from 'react'
 import { EditorState } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
-import createMentionPlugin from 'draft-js-mention-plugin'
+import createMentionPlugin, { defaultSuggestionsFilter} from 'draft-js-mention-plugin'
 import './TextInput.scss'
-import { mentions } from './mentions'
 import 'draft-js-mention-plugin/lib/plugin.css';
-import SchoolService from '../../shared/school-service'
+import ContactService, { Contact } from '../../shared/contact-service'
+//import SchoolService, { School } from '../../shared/school-service'
 
 class TextInput extends React.Component {
+    //schoolMentionPlugin: any
     mentionPlugin: any
     readonly state: any = {
         editorState: EditorState.createEmpty(),
-        suggestions: mentions
+        suggestions: [],
+        //schoolSuggestions: []
     }
-    schoolService: SchoolService
-
+    contactService: ContactService
+    //schoolService: SchoolService
     constructor(props: any) {
         super(props)
-        this.schoolService = new SchoolService()
-        this.mentionPlugin = createMentionPlugin({mentions})
+        this.contactService = new ContactService()
+        //this.schoolService = new SchoolService()
+        //this.schoolMentionPlugin = createMentionPlugin({mentionTrigger: ":"})
+        this.mentionPlugin = createMentionPlugin()
     }
 
     onChange = (editorState: EditorState) => {
@@ -27,14 +31,26 @@ class TextInput extends React.Component {
 
     onSearchChange = (e: {value:string}) => {
         console.log(e.value)
-        // this.schoolService.searchSchools(e.value).then((results: School[]) => {
-        //      this.setState({ suggestions: results })
-        // })
+        
+        this.contactService.retrieveContacts().then((results: Contact[]) => {
+            this.setState({
+                suggestions: defaultSuggestionsFilter(e.value, results)
+            })
+        })
     }
+
+    // onSchoolSearchChange = (e: {value:string}) => {
+    //     this.schoolService.retrieveSchools().then((results: School[]) => {
+    //         this.setState({
+    //             schoolSuggestions: defaultSuggestionsFilter(e.value, results)
+    //         })
+    //     })
+    // }
 
     render() {
         const { MentionSuggestions } = this.mentionPlugin
-        const plugins = [this.mentionPlugin]
+        //const { SchoolMentionSuggestions } = this.schoolMentionPlugin
+        const plugins = [this.mentionPlugin]//, this.schoolMentionPlugin]
         return (
             <div className={'editor'}>
                 <Editor
@@ -44,6 +60,8 @@ class TextInput extends React.Component {
                 />
                 <MentionSuggestions onSearchChange={this.onSearchChange}
                     suggestions={this.state.suggestions} />
+                {/* <SchoolMentionSuggestions onSearchChange={this.onSchoolSearchChange}
+                    suggestions={this.state.schoolSuggestions} /> */}
             </div>
         )
     }
