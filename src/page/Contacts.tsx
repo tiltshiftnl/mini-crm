@@ -1,4 +1,4 @@
-import { Button, SearchBar } from '@datapunt/asc-ui'
+import { Button, SearchBar } from '@amsterdam/asc-ui'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { ContactCard } from '../elements/contactcard'

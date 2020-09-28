@@ -1,5 +1,5 @@
-import { Card, CardMedia, Icon, CardContent, Paragraph, CardActions } from '@datapunt/asc-ui'
-import { Building, ChevronRight } from '@datapunt/asc-assets'
+import { Card, CardMedia, Icon, CardContent, Paragraph, CardActions } from '@amsterdam/asc-ui'
+import { Building, ChevronRight } from '@amsterdam/asc-assets'
 import React from 'react'
 import './card.scss'
 import { School } from '../shared/school-service'

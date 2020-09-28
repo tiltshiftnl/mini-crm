@@ -1,4 +1,4 @@
-import { Card, CardContent, Label, Input, Button, Paragraph } from '@datapunt/asc-ui'
+import { Card, CardContent, Label, Input, Button, Paragraph } from '@amsterdam/asc-ui'
 import React from 'react'
 import { RouteProps } from 'react-router-dom'
 import ContactService, { Contact } from '../shared/contact-service'

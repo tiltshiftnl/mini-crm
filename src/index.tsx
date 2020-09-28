@@ -1,4 +1,4 @@
-import { GlobalStyle, ThemeProvider } from '@datapunt/asc-ui'
+import { GlobalStyle, ThemeProvider } from '@amsterdam/asc-ui'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'

@@ -1,4 +1,4 @@
-import { SearchBar } from '@datapunt/asc-ui'
+import { SearchBar } from '@amsterdam/asc-ui'
 import React from 'react'
 import { SchoolCard } from '../elements/school'
 import SchoolService, { School } from '../shared/school-service'

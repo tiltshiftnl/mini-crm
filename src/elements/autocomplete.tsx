@@ -1,4 +1,4 @@
-import { Input } from '@datapunt/asc-ui'
+import { Input } from '@amsterdam/asc-ui'
 import React from 'react'
 import SchoolService, { School } from '../shared/school-service'
 import './autocomplete.scss'

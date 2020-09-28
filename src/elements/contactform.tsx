@@ -1,4 +1,4 @@
-import { Card, CardContent, FormTitle, Label, Input, Button } from '@datapunt/asc-ui'
+import { Card, CardContent, FormTitle, Label, Input, Button } from '@amsterdam/asc-ui'
 import React from 'react'
 import ContactService, { Contact } from '../shared/contact-service'
 import { School } from '../shared/school-service'

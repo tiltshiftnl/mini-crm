@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header } from '@datapunt/asc-ui'
+import { Header } from '@amsterdam/asc-ui'
 import { HomePage } from './page/Home'
 import './App.scss'
 import { BrowserRouter, NavLink, Route, Switch } from 'react-router-dom'

@@ -10,7 +10,7 @@ class TextInput extends React.Component {
     mentionPlugin: any
     readonly state: any = {
         editorState: EditorState.createEmpty(),
-        suggestions: []
+        suggestions: [] as School[]
     }
     contactService: ContactService
     constructor(props: any) {
@@ -28,7 +28,7 @@ class TextInput extends React.Component {
         
         this.contactService.retrieveSchools().then((results: School[]) => {
             this.setState({
-                suggestions: defaultSuggestionsFilter(e.value, results)
+                suggestions: defaultSuggestionsFilter<School>(e.value, results)
             })
         })
     }
@@ -43,7 +43,7 @@ class TextInput extends React.Component {
                     onChange={this.onChange}
                     plugins={plugins}
                 />
-                <MentionSuggestions onSearchChange={this.onSearchChange}
+                <MentionSuggestions<School> onSearchChange={this.onSearchChange}
                     suggestions={this.state.suggestions} />
             </div>
         )
