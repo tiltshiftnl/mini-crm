@@ -1,34 +1,54 @@
 import React from 'react'
 import { EditorState } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
-import createMentionPlugin, { defaultSuggestionsFilter} from 'draft-js-mention-plugin'
+import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin'
 import './TextInput.scss'
-import 'draft-js-mention-plugin/lib/plugin.css';
-import ContactService, { School } from '../../shared/school-service'
+import SearchService from '../../shared/search-service'
 
+
+type MentionProps = {
+    className: string
+    children: any
+}
 class TextInput extends React.Component {
     mentionPlugin: any
     readonly state: any = {
         editorState: EditorState.createEmpty(),
-        suggestions: [] as School[]
+        suggestions: [] as any[]
     }
-    contactService: ContactService
+    searchService: SearchService
     constructor(props: any) {
         super(props)
-        this.contactService = new ContactService()
-        this.mentionPlugin = createMentionPlugin()
+        this.searchService = new SearchService()
+        this.mentionPlugin = createMentionPlugin({
+            mentionTrigger: '@',
+            keyBindingFn: (e: any) => console.log(e),
+            mentionComponent: (mentionProps: MentionProps) => {
+                
+                const onClick = () => {
+                    alert("You clicked me!")
+                }
+                return (
+                    <span
+                        className={mentionProps.className}
+                        // eslint-disable-next-line no-alert
+                        onClick={onClick}
+                    >
+                        {mentionProps.children}
+                    </span>
+                )
+            }
+        })
     }
 
     onChange = (editorState: EditorState) => {
         this.setState({ editorState })
     }
 
-    onSearchChange = (e: {value:string}) => {
-        console.log(e.value)
-        
-        this.contactService.retrieveSchools().then((results: School[]) => {
+    onSearchChange = (e: { value: string }) => {
+        this.searchService.searchAny(e.value).then((results: any[]) => {
             this.setState({
-                suggestions: defaultSuggestionsFilter<School>(e.value, results)
+                suggestions: defaultSuggestionsFilter(e.value, results)
             })
         })
     }
@@ -43,7 +63,7 @@ class TextInput extends React.Component {
                     onChange={this.onChange}
                     plugins={plugins}
                 />
-                <MentionSuggestions<School> onSearchChange={this.onSearchChange}
+                <MentionSuggestions<any> onSearchChange={this.onSearchChange} className={"hit"}
                     suggestions={this.state.suggestions} />
             </div>
         )
