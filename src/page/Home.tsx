@@ -10,9 +10,6 @@ export class HomePage extends React.Component {
                 <TextInput />
                 <React.Fragment>
                     <div className={"button-bar"}>
-                        <Button variant="primary">Persoon</Button>
-                        <Button variant="tertiary">Instantie</Button>
-                        <Button variant="primaryInverted">Soort contact</Button>
                         <Button variant="secondary" taskflow>Opslaan</Button>
                     </div>
                 </React.Fragment>

@@ -5,6 +5,7 @@
     cursor: text;
     padding: 10px;
     min-height: 400px;
+    line-height: 1.4em;
 }
 
 .DraftEditor-editorContainer {
@@ -87,17 +88,28 @@
     -webkit-transform: scale(0);
             transform: scale(0);
   }
-
-  .red {
-    padding: 3px;
-    background-color: rgba(226, 194, 194, 0.5) !important;
+  
+  .red{
+    background-color: #B4B4B4 !important;
+    border: 1px solid #B4B4B4 !important;
+    color: rgb(46, 52, 54);
+    
   }
 
   .green {
-    padding: 3px;
-    background-color: rgba(67, 192, 67, 0.5) !important;
+    background-color: #004699 !important;
+    border: 1px solid #004699 !important;
+    color: #fff;
   }
   
   .draftJsHashtagPlugin__hashtag__1wMVC {
-    color: rgb(50, 120, 177);
+    padding: 3px;
+    color: rgb(20, 97, 160);
+    border: 1px solid #004699 !important
+  }
+
+  .legend{ 
+    padding: 5px;
+    color: rgb(46, 52, 54);
+    font-style: italic;
   }
