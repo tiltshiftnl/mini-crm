@@ -17,6 +17,7 @@
     "@types/react-router-dom": "^5.1.5",
     "chance": "^1.1.7",
     "draft-js": "^0.11.7",
+    "draft-js-hashtag-plugin": "^2.0.4",
     "draft-js-mention-plugin": "^3.1.5",
     "draft-js-plugins-editor": "^3.0.0",
     "node-sass": "^4.14.1",
@@ -47,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.161"
   }
 }

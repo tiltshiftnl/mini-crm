@@ -1,6 +1,7 @@
 import React from 'react'
 import { EditorState } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
+import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin'
 import './TextInput.scss'
 import SearchService from '../../shared/search-service'
@@ -12,6 +13,7 @@ type MentionProps = {
 }
 class TextInput extends React.Component {
     mentionPlugin: any
+    hashtagPlugin: any
     readonly state: any = {
         editorState: EditorState.createEmpty(),
         suggestions: [] as any[]
@@ -20,11 +22,11 @@ class TextInput extends React.Component {
     constructor(props: any) {
         super(props)
         this.searchService = new SearchService()
+        this.hashtagPlugin = createHashtagPlugin()
         this.mentionPlugin = createMentionPlugin({
             mentionTrigger: '@',
             keyBindingFn: (e: any) => console.log(e),
             mentionComponent: (mentionProps: MentionProps) => {
-                console.log(mentionProps)
                 const setHighlight = () => {
                     if((mentionProps as any).mention.type === "school"){
                         return "red"
@@ -50,6 +52,7 @@ class TextInput extends React.Component {
     }
 
     onChange = (editorState: EditorState) => {
+        console.log(editorState.getCurrentContent().getBlocksAsArray())
         this.setState({ editorState })
     }
 
@@ -63,7 +66,7 @@ class TextInput extends React.Component {
 
     render() {
         const { MentionSuggestions } = this.mentionPlugin
-        const plugins = [this.mentionPlugin]
+        const plugins = [this.mentionPlugin, this.hashtagPlugin]
         return (
             <div className={'editor'}>
                 <Editor
