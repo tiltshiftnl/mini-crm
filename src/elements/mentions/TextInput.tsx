@@ -24,13 +24,21 @@ class TextInput extends React.Component {
             mentionTrigger: '@',
             keyBindingFn: (e: any) => console.log(e),
             mentionComponent: (mentionProps: MentionProps) => {
-                
+                console.log(mentionProps)
+                const setHighlight = () => {
+                    if((mentionProps as any).mention.type === "school"){
+                        return "red"
+                    }
+                    if((mentionProps as any).mention.type === "contact"){
+                        return "green"
+                    }
+                }
                 const onClick = () => {
                     alert("You clicked me!")
                 }
                 return (
                     <span
-                        className={mentionProps.className}
+                        className={mentionProps.className + " " + setHighlight()}
                         // eslint-disable-next-line no-alert
                         onClick={onClick}
                     >
@@ -63,7 +71,7 @@ class TextInput extends React.Component {
                     onChange={this.onChange}
                     plugins={plugins}
                 />
-                <MentionSuggestions<any> onSearchChange={this.onSearchChange} className={"hit"}
+                <MentionSuggestions onSearchChange={this.onSearchChange} className={"hit"}
                     suggestions={this.state.suggestions} />
             </div>
         )
