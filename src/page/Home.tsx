@@ -58,7 +58,7 @@ export class HomePage extends React.Component {
                     }} />
                 </section>
                 <div className={'note-list'}>
-                {this.state.notes.map((note: Note) => (
+                {this.state.notes.reverse().map((note: Note) => (
                         <Paragraph key={note.id}>{note.note}</Paragraph>
                 ))}
                 </div>
