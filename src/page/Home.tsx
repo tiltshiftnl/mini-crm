@@ -4,22 +4,27 @@ import React from 'react'
 import TextInput from '../elements/mentions/TextInput'
 import './Home.scss'
 
+type HomePageState = {
+    notes: Note[],
+    filteredNotes: []
+}
+
 export class HomePage extends React.Component {
     filter = ""
     noteService: NoteService
 
-    state = {
+    readonly state: HomePageState = {
         notes: [],
         filteredNotes: []
     }
 
     constructor(props: any) {
-        super(props);
-        this.noteService = new NoteService();
-        this.loadNotes("");
+        super(props)
+        this.noteService = new NoteService()
+        this.retrieveNotes("")
     }
 
-    loadNotes = (filter: string) => {
+    retrieveNotes = (filter: string) => {
         this.filter = filter.toLowerCase()
         this.noteService.retrieveNotes().then((notes: Note[]) => {
             this.setState({
@@ -33,7 +38,7 @@ export class HomePage extends React.Component {
     }
 
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.loadNotes(e.target.value);
+        this.retrieveNotes(e.target.value);
     }
 
     render() {
