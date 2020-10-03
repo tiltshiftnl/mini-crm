@@ -7,8 +7,10 @@ import { ContactPage } from './page/Contacts'
 import { SchoolPage } from './page/Schools'
 import { ContactForm } from './elements/contactform'
 import { ContactDetailForm } from './elements/contactdetailform'
-
+import moment from 'moment'
+import 'moment/locale/nl'
 const App = () => {
+  moment.locale("nl")
   return (
     <div className="App">
       

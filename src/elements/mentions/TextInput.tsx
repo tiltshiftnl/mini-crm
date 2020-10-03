@@ -1,4 +1,5 @@
 import React from 'react'
+import moment, { Moment } from 'moment';
 import { convertToRaw, EditorState, RawDraftContentState } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
@@ -16,6 +17,7 @@ type MentionEntity = {
 }
 
 class TextInput extends React.Component {
+    start: Moment | undefined;
     mentionPlugin: any
     hashtagPlugin: any
     readonly state: any = {
@@ -30,6 +32,7 @@ class TextInput extends React.Component {
         this.hashtagPlugin = createHashtagPlugin()
         this.mentionPlugin = createMentionPlugin({
             mentionTrigger: '@',
+            supportWhitespace: true,
             keyBindingFn: (e: any) => console.log(e),
             mentionComponent: (mentionProps: MentionProps) => {
                 const setHighlight = () => {
@@ -57,18 +60,31 @@ class TextInput extends React.Component {
     }
 
     onChange = (editorState: EditorState) => {
+        console.log("On change")
         const data: RawDraftContentState = convertToRaw(editorState.getCurrentContent())
         // Extract text from the data
         const text: string = data.blocks[0].text
+        if(text.length > 0) {
+            if(!this.start){
+                this.start = moment()
+            }
+        } else {
+            this.start = undefined
+        }
         // Extract Entities from data.entityMap
         const entities: MentionEntity[] = Object.keys(data.entityMap).map((key: string) => {
             return (data.entityMap[key].data.mention as any)
         })
         const filtered = text.split(' ').filter((word: string) => {
-            return word.match(/\B(\#[a-zA-Z]+\b)(?!;)/)
+            return word.match(/\B(#[a-zA-Z]+\b)(?!;)/)
         });
+        // If the time difference is larger then a minute, display it.
+        const timePassed = moment().diff(this.start, "minutes") > 0 ? "~" + moment().diff(this.start, 'minutes') + "m" : "" 
+        const timeDisplay: string = this.start ? 
+            this.start.format("hh:mm") + timePassed
+            : ""
         this.setState({
-            legend: filtered.length + " trefwoord(en), " + entities.length + " scholen/personen",
+            legend:  timeDisplay + " " + filtered.length + " trefwoord(en), " + entities.length + " scholen/personen",
             editorState
         })
     }

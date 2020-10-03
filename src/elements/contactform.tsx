@@ -42,14 +42,17 @@ export class ContactForm extends React.Component<{}> {
     }
 
     handleSubmit = (event: any) => {
+        console.log(this.school)
         const postContact: Contact = {
             id: 0,
             name: this.state.name,
             email: this.state.email,
             phone: this.state.phone,
-            school_id: this.school.current.state.selected.id
+        }    
+        if(this.school.current.state.selected){
+            postContact.school_id = this.school.current.state.selected.id
         }
-        // TODO Send it to the server!
+
         this.contactService.postContact(postContact).then((result: Contact) => {
             console.log(result)
         })
