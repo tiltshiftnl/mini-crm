@@ -143,7 +143,7 @@ class TextInput extends React.Component {
                     <MentionSuggestions onSearchChange={this.onSearchChange} className={"hit"}
                         suggestions={this.state.suggestions} />
                 </div>
-                <div className="legend">{this.state.legend}</div>
+                <div className="legend">{this.state.legend}</div>wewee
                 {this.state.tags.map((value: Term) => (
                     <div className={`tag  size${value.notes}`}
                         onClick={this.sendTextToEditor.bind(this, " #" + value.tag + " ")}
