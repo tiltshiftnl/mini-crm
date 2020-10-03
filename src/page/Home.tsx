@@ -25,8 +25,8 @@ export class HomePage extends React.Component {
         super(props)
         this.noteService = new NoteService()
         this.termService = new TermService()
-        this.termService.retrieveTags().then((result: Term[])=> {
-            this.setState({tags: result})
+        this.termService.retrieveTags().then((result: Term[]) => {
+            this.setState({ tags: result })
         })
         this.retrieveNotes("")
     }
@@ -54,23 +54,23 @@ export class HomePage extends React.Component {
                 <section style={{ padding: "1em" }}>
                     <TextInput />
                     {this.state.tags.map((value: Term) => (
-                    <div className={`tag  size${value.notes}`} key={value.id}>{value.tag}</div>
-                ))}
+                        <div className={`tag  size${value.notes}`} key={value.id}>{value.tag}</div>
+                    ))}
                     <React.Fragment>
                         <div className={"button-bar"}>
                             <Button variant="secondary" taskflow>Opslaan</Button>
                         </div>
                     </React.Fragment>
                 </section>
-                <section style={{ padding: "1em"}}>
-                    <SearchBar placeholder="Notitie..." autoFocus onChange={(e) => {
+                <section style={{ padding: "1em" }}>
+                    <SearchBar placeholder="Notitie..." onChange={(e) => {
                         this.handleSearchInput(e)
                     }} />
                 </section>
                 <div className={'note-list'}>
-                {this.state.notes.reverse().map((note: Note) => (
+                    {this.state.notes.reverse().map((note: Note) => (
                         <Paragraph key={note.id}>{note.note}</Paragraph>
-                ))}
+                    ))}
                 </div>
             </div>
         )

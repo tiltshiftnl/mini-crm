@@ -14,7 +14,7 @@ class NoteService {
     }
 
     async retrieveNotes(contact?: Contact) {
-        var uri = this.config.API_BASE_URL + "/notes";
+        var uri = this.config.API_BASE_URL + "/v2/notes";
         if (contact) uri += "/" + contact.id;
         return fetch(uri)
             .then(response => {
@@ -33,7 +33,7 @@ class NoteService {
     }
 
     async postNote(note: Note) {
-        return fetch(this.config.API_BASE_URL + "/note",
+        return fetch(this.config.API_BASE_URL + "/v1/note",
             {
                 method: "POST",
                 body: JSON.stringify(note),

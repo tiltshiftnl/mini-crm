@@ -13,7 +13,7 @@ class TermService {
     }
 
     async retrieveTags() {
-        return fetch(this.config.API_BASE_URL + "/tags")
+        return fetch(this.config.API_BASE_URL + "/v1/tags")
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)

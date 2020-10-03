@@ -18,7 +18,7 @@ class ContactService {
     }
 
     async retrieveContact(id: number) {
-        return fetch(this.config.API_BASE_URL + "/contact/" + id)
+        return fetch(this.config.API_BASE_URL + "/v1/contact/" + id)
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -35,7 +35,7 @@ class ContactService {
     }
 
     async retrieveContacts() {
-        return fetch(this.config.API_BASE_URL + "/contacts")
+        return fetch(this.config.API_BASE_URL + "/v1/contacts")
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -52,7 +52,7 @@ class ContactService {
     }
 
     async searchContacts(search: string) {
-        return fetch(this.config.API_BASE_URL + "/contacts/" + search)
+        return fetch(this.config.API_BASE_URL + "/v1/contacts/" + search)
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -69,7 +69,7 @@ class ContactService {
     }
 
     async postContact(contact: Contact) {
-        return fetch(this.config.API_BASE_URL + "/contact",
+        return fetch(this.config.API_BASE_URL + "/v1/contact",
             {
                 method: "POST",
                 body: JSON.stringify(contact),

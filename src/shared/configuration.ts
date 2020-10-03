@@ -1,5 +1,5 @@
 class Configuration {
-    API_BASE_URL = "https://mini-crm.tiltshiftapps.nl/api/v1"
+    API_BASE_URL = "https://mini-crm.tiltshiftapps.nl/api"
 }
 
 export default Configuration

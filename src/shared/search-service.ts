@@ -7,7 +7,7 @@ class SearchService {
     }
 
     async searchAny(search: string) {
-        return fetch(this.config.API_BASE_URL + "/search/" + search)
+        return fetch(this.config.API_BASE_URL + "/v1/search/" + search)
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)

@@ -24,7 +24,7 @@ class SchoolService {
     }
 
     async retrieveSchools() {
-        return fetch(this.config.API_BASE_URL + "/schools")
+        return fetch(this.config.API_BASE_URL + "/v1/schools")
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -41,7 +41,7 @@ class SchoolService {
     }
 
     async searchSchools(search: string) {
-        return fetch(this.config.API_BASE_URL + "/schools/" + search)
+        return fetch(this.config.API_BASE_URL + "/v1/schools/" + search)
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
