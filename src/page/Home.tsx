@@ -2,32 +2,26 @@ import { Button, SearchBar, Paragraph } from '@amsterdam/asc-ui'
 import NoteService, { Note } from '../shared/note-service'
 import React from 'react'
 import TextInput from '../elements/mentions/TextInput'
-import TermService, { Term } from '../shared/term-service'
 import './Home.scss'
 
 type HomePageState = {
     notes: Note[],
-    tags: Term[],
+    
     filteredNotes: []
 }
 
 export class HomePage extends React.Component {
     filter = ""
     noteService: NoteService
-    termService: TermService
     readonly state: HomePageState = {
         notes: [],
-        tags: [],
+        
         filteredNotes: []
     }
 
     constructor(props: any) {
         super(props)
         this.noteService = new NoteService()
-        this.termService = new TermService()
-        this.termService.retrieveTags().then((result: Term[]) => {
-            this.setState({ tags: result })
-        })
         this.retrieveNotes("")
     }
 
@@ -53,9 +47,6 @@ export class HomePage extends React.Component {
             <div>
                 <section style={{ padding: "1em" }}>
                     <TextInput />
-                    {this.state.tags.map((value: Term) => (
-                        <div className={`tag  size${value.notes}`} key={value.id}>{value.tag}</div>
-                    ))}
                     <React.Fragment>
                         <div className={"button-bar"}>
                             <Button variant="secondary" taskflow>Opslaan</Button>

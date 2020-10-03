@@ -10,19 +10,3 @@
 textarea {
     height: auto !important;
 }
-
-.tag {
-    display: inline-block;
-    padding: 3px;
-    padding-left: 8px;
-    padding-right: 8px;
-    background-color: #ccc;
-    margin: 3px;
-    border: 1px solid #fff;
-    cursor: pointer;
-    &:hover {
-        color: #fff;
-        border: 1px solid #000;
-        background-color: rgb(126, 126, 126);
-    }
-}
