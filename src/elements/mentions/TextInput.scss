@@ -1,133 +1,140 @@
 .editor {
-    margin-top: 1em;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    cursor: text;
-    padding: 10px;
-    min-height: 400px;
-    line-height: 1.4em;
+  margin-top: 1em;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  cursor: text;
+  padding: 10px;
+  min-height: 400px;
+  line-height: 1.4em;
 }
 
 .DraftEditor-editorContainer {
-    min-height: 400px;
+  min-height: 400px;
 }
 
 .public-DraftEditor-content {
-    min-height: 400px;
+  min-height: 400px;
 }
 
-.draftJsMentionPlugin__mention__29BEd, .draftJsMentionPlugin__mention__29BEd:visited {
-    color: #575f67;
-    cursor: pointer;
-    display: inline-block;
-    background: #e6f3ff;
-    padding-left: 2px;
-    padding-right: 2px;
-    border-radius: 2px;
-    text-decoration: none;
-  }
-  
-  .draftJsMentionPlugin__mention__29BEd:hover, .draftJsMentionPlugin__mention__29BEd:focus {
-    color: #677584;
-    background: #edf5fd;
-    outline: 0; /* reset for :focus */
-  }
-  
-  .draftJsMentionPlugin__mention__29BEd:active {
-    color: #222;
-    background: #455261;
-  }
-  .draftJsMentionPlugin__mentionSuggestionsEntry__3mSwm {
-    padding: 7px 10px 3px 10px;
-    transition: background-color 0.4s cubic-bezier(.27,1.27,.48,.56);
-  }
-  
-  .draftJsMentionPlugin__mentionSuggestionsEntry__3mSwm:active {
-    background-color: #cce7ff;
-  }
-  
-  .draftJsMentionPlugin__mentionSuggestionsEntryFocused__3LcTd {
-    background-color: #e6f3ff;
-  }
-  
-  .draftJsMentionPlugin__mentionSuggestionsEntryText__3Jobq {
-    display: inline-block;
-    margin-left: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 368px;
-    font-size: 0.9em;
-    margin-bottom: 0.2em;
-  }
-  
-  .draftJsMentionPlugin__mentionSuggestionsEntryAvatar__1xgA9 {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-  }
-  .draftJsMentionPlugin__mentionSuggestions__2DWjA {
-    border: 1px solid #eee;
-    margin-top: 0.4em;
-    position: absolute;
-    min-width: 220px;
-    max-width: 440px;
-    background: #fff;
-    border-radius: 2px;
-    box-shadow: 0px 4px 30px 0px rgba(220,220,220,1);
-    cursor: pointer;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    z-index: 2;
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-            flex-direction: column;
-    box-sizing: border-box;
-    -webkit-transform: scale(0);
-            transform: scale(0);
-  }
-  
-  .red{
-    background-color: #B4B4B4 !important;
-    border: 1px solid #B4B4B4 !important;
-    color: rgb(46, 52, 54);
-    
-  }
+.draftJsMentionPlugin__mention__29BEd,
+.draftJsMentionPlugin__mention__29BEd:visited {
+  color: #575f67;
+  cursor: pointer;
+  display: inline-block;
+  background: #e6f3ff;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 2px;
+  text-decoration: none;
+}
 
-  .green {
-    background-color: #004699 !important;
-    border: 1px solid #004699 !important;
+.draftJsMentionPlugin__mention__29BEd:hover,
+.draftJsMentionPlugin__mention__29BEd:focus {
+  color: #677584;
+  background: #edf5fd;
+  outline: 0;
+  /* reset for :focus */
+}
+
+.draftJsMentionPlugin__mention__29BEd:active {
+  color: #222;
+  background: #455261;
+}
+
+.draftJsMentionPlugin__mentionSuggestionsEntry__3mSwm {
+  padding: 7px 10px 3px 10px;
+  transition: background-color 0.4s cubic-bezier(.27, 1.27, .48, .56);
+}
+
+.draftJsMentionPlugin__mentionSuggestionsEntry__3mSwm:active {
+  background-color: #cce7ff;
+}
+
+.draftJsMentionPlugin__mentionSuggestionsEntryFocused__3LcTd {
+  background-color: #e6f3ff;
+}
+
+.draftJsMentionPlugin__mentionSuggestionsEntryText__3Jobq {
+  display: inline-block;
+  margin-left: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 368px;
+  font-size: 0.9em;
+  margin-bottom: 0.2em;
+}
+
+.draftJsMentionPlugin__mentionSuggestionsEntryAvatar__1xgA9 {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.draftJsMentionPlugin__mentionSuggestions__2DWjA {
+  border: 1px solid #eee;
+  margin-top: 0.4em;
+  position: absolute;
+  min-width: 220px;
+  max-width: 440px;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0px 4px 30px 0px rgba(220, 220, 220, 1);
+  cursor: pointer;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  z-index: 2;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  box-sizing: border-box;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+.red {
+  background-color: #B4B4B4 !important;
+  border: 1px solid #B4B4B4 !important;
+  color: rgb(46, 52, 54);
+
+}
+
+.green {
+  background-color: #004699 !important;
+  border: 1px solid #004699 !important;
+  color: #fff;
+}
+
+.draftJsHashtagPlugin__hashtag__1wMVC {
+  padding: 3px;
+  color: rgb(20, 97, 160);
+  border: 1px solid #004699 !important
+}
+
+.legend {
+  padding: 5px;
+  color: rgb(46, 52, 54);
+  font-style: italic;
+}
+
+.tag {
+  display: inline-block;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin: 3px;
+  border: 1px solid #1461a0;
+  color: #1461a0;
+  cursor: pointer;
+
+  &:hover {
     color: #fff;
-  }
-  
-  .draftJsHashtagPlugin__hashtag__1wMVC {
-    padding: 3px;
-    color: rgb(20, 97, 160);
-    border: 1px solid #004699 !important
-  }
-
-  .legend{ 
-    padding: 5px;
-    color: rgb(46, 52, 54);
-    font-style: italic;
-  }
-
-  .tag {
-    display: inline-block;
-    padding-left: 3px;
-    padding-right: 3px;
-    margin: 3px;
     border: 1px solid #1461a0;
-    color: #1461a0;
-    cursor: pointer;
-    &:hover {
-        color: #fff;
-        border: 1px solid #1461a0;
-        background-color: #1461a0;
-    }
-    &:before{
-        content: "#";
-    }
+    background-color: #1461a0;
+  }
+
+  &:before {
+    content: "#";
+  }
 }

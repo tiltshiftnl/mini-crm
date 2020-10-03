@@ -3,6 +3,7 @@ import NoteService, { Note } from '../shared/note-service'
 import React from 'react'
 import TextInput from '../elements/mentions/TextInput'
 import './Home.scss'
+import moment from 'moment'
 
 type HomePageState = {
     notes: Note[],
@@ -42,6 +43,25 @@ export class HomePage extends React.Component {
         this.retrieveNotes(e.target.value);
     }
 
+    colorNote = (text: string) => {
+        const textArray = text.split(' ')
+        const coloredText = textArray.map(text => {
+            if ((/\B(#[a-zA-Z]+\b)(?!;)/).test(text)) {
+              return <span className="note-tag">{text}</span>;
+            }
+            return text + ' ';
+          });
+        return <div>{coloredText}</div>
+    }
+
+    displayDateTime = (text: string | undefined) => {
+        if(text){
+            const start = moment(text).format("DD-MM-YYYY hh:mm")
+            return <div className="note-start">{start}</div>
+        }
+        return ""
+    }
+
     render() {
         return (
             <div>
@@ -60,7 +80,7 @@ export class HomePage extends React.Component {
                 </section>
                 <div className={'note-list'}>
                     {this.state.notes.reverse().map((note: Note) => (
-                        <Paragraph key={note.id}>{note.note}</Paragraph>
+                        <Paragraph key={note.id}>{this.displayDateTime(note.start)}{this.colorNote(note.note)}</Paragraph>
                     ))}
                 </div>
             </div>

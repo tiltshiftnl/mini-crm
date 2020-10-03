@@ -61,7 +61,7 @@ export class ContactDetailForm extends React.Component<RouteProps> {
         const postNote: Note = {
             id: 0,
             note: this.state.note,
-            contact_id: (this.state.contact as any).id
+            contact_id: (this.state.contact as any).id,
         }
         // TODO Send it to the server!
         this.noteService.postNote(postNote).then((result: Note) => {

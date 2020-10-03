@@ -2,9 +2,11 @@ import Configuration from "./configuration"
 import { Contact } from "./contact-service"
 
 export type Note = {
-    id: number,
-    note: string,
+    id: number
+    note: string
     contact_id?: number
+    start?: string
+    end?: string
 }
 
 class NoteService {
