@@ -45,9 +45,10 @@ export class HomePage extends React.Component {
 
     colorNote = (text: string) => {
         const textArray = text.split(' ')
+        var i = 0;
         const coloredText = textArray.map(text => {
             if ((/\B(#[a-zA-Z]+\b)(?!;)/).test(text)) {
-              return <span className="note-tag">{text}</span>;
+              return <span key={i++} className="note-tag">{text}</span>;
             }
             return text + ' ';
           });
