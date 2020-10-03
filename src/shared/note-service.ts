@@ -13,8 +13,10 @@ class NoteService {
         this.config = new Configuration()
     }
 
-    async retrieveNotes(contact: Contact) {
-        return fetch(this.config.API_BASE_URL + "/notes/" + contact.id)
+    async retrieveNotes(contact?: Contact) {
+        var uri = this.config.API_BASE_URL + "/notes";
+        if (contact) uri += "/" + contact.id;
+        return fetch(uri)
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
