@@ -9,6 +9,7 @@ import SearchService from '../../shared/search-service'
 import TermService, { Term } from '../../shared/term-service';
 import { Button } from '@amsterdam/asc-ui';
 import NoteService, { Note } from '../../shared/note-service'
+import { extractHashtagsWithIndices } from '../../utils';
 
 type TextInputProps = {
     afterSubmit: Function
@@ -103,8 +104,8 @@ class TextInput extends React.Component<TextInputProps> {
             return (data.entityMap[key].data.mention as any)
         })
 
-        _note.tags = text.split(' ').filter((word: string) => {
-            return word.match(/\B(#[a-zA-Z]+\b)(?!;)/)
+        _note.tags = extractHashtagsWithIndices(text).map((hashtag: any) => {
+            return hashtag.hashtag
         })
 
         _note.start = this.start?.toJSON()
@@ -198,7 +199,7 @@ class TextInput extends React.Component<TextInputProps> {
                     <div className="legend">{this.state.legend}</div>
                     <div className="tag-list">
                         {this.state.tags.map((value: Term) => (
-                            <div className={`note-tag  size${value.notes}`}
+                            <div className={`tag  size${value.notes}`}
                                 onClick={this.sendTextToEditor.bind(this, " #" + value.tag + " ")}
                                 key={value.id}>
                                 {value.tag}

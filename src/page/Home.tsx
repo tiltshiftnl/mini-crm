@@ -4,6 +4,7 @@ import React from 'react'
 import TextInput from '../elements/mentions/TextInput'
 import './Home.scss'
 import moment from 'moment'
+import { extractHashtagsWithIndices } from '../utils'
 
 type HomePageState = {
     notes: Note[],
@@ -43,13 +44,42 @@ export class HomePage extends React.Component {
     }
 
     colorNote = (text: string) => {
+        const _detectedTags = extractHashtagsWithIndices(text).map((hashtag: any) => {
+            return hashtag.hashtag
+        })
+
         const textArray = text.split(' ')
+
         var i = 0;
         const coloredText = textArray.map(text => {
-            if ((/\B(#[a-zA-Z]+\b)(?!;)/).test(text)) {
-              return <span key={i++} className="note-tag">{text}</span>;
+            let _t = text
+            let _lostchar = ' '
+            if (text.startsWith('#')) {
+                _t = text.substr(1, text.length)
+                if (_t.endsWith('.')) {
+                    _lostchar = '.'
+                    _t = _t.substr(0, _t.length - 1)
+                }
+                if (_t.endsWith('?')) {
+                    _lostchar = '?'
+                    _t = _t.substr(0, _t.length - 1)
+                }
+                if (_t.endsWith(';')) {
+                    _lostchar = ';'
+                    _t = _t.substr(0, _t.length - 1)
+                }
+                if (_t.endsWith(':')) {
+                    _lostchar = ':'
+                    _t = _t.substr(0, _t.length - 1)
+                }
             }
-            return text + ' ';
+            console.log(_t)
+
+            if (_detectedTags.indexOf(_t) > -1) {
+                console.log('hit')
+                return <><span key={i++} className="tag">{_t}</span>{_lostchar} </>;
+            }
+            return _t + ' ';
         });
         return <div>{coloredText}</div>
     }
@@ -73,19 +103,19 @@ export class HomePage extends React.Component {
         return (
             <div className="container">
                 <section>
-                    <TextInput afterSubmit={this.updateView}/>
+                    <TextInput afterSubmit={this.updateView} />
                 </section>
                 <section>
                     <SearchBar placeholder="Notities filteren..." onChange={(e) => {
                         this.handleSearchInput(e)
                     }} />
                     <div className={'note-list'}>
-                    {this.state.notes.reverse().map((note: Note) => (
-                        <div key={note.id}>{this.displayDateTime(note.start)}{this.colorNote(note.note)}</div>
-                    ))}
-                </div>
+                        {this.state.notes.reverse().map((note: Note) => (
+                            <div key={note.id}>{this.displayDateTime(note.start)}{this.colorNote(note.note)}</div>
+                        ))}
+                    </div>
                 </section>
-                
+
             </div>
         )
     }
