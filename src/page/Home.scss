@@ -28,3 +28,18 @@ textarea {
     font-size: 0.8em;
     padding-right: 12px;
 }
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    @media (min-width: 800px){
+        flex-direction: row;
+     }
+    section {
+        flex-basis: 0;
+        flex-grow: 1;
+        padding: 0.25em;
+        margin-top: 0.5em;
+    }
+}

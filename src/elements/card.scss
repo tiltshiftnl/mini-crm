@@ -12,9 +12,14 @@ a {
     }
 }
 .note-list {
-    padding: 2em;
-    p {
-        border-top: 1px solid #ccc;
+    padding-top: 0.25em;
+    >div {
+        border: 1px solid #767676;
+        padding: 0.5em;
+        margin: 0 0 0.25em 0;
+        div {
+            padding: 0.25em;
+        }
     }
 }
 

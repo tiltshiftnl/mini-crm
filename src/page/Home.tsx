@@ -39,7 +39,7 @@ export class HomePage extends React.Component {
     }
 
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.retrieveNotes(e.target.value);
+        this.retrieveNotes(e.target.value)
     }
 
     colorNote = (text: string) => {
@@ -55,31 +55,37 @@ export class HomePage extends React.Component {
     }
 
     displayDateTime = (text: string | undefined) => {
+        var i = 0;
         if (text) {
             const start = moment(text).format("DD-MM-YYYY hh:mm")
-            return <div className="note-start">{start}</div>
+            return <div key={i++} className="note-start">{start}</div>
         }
         return ""
     }
 
 
+    updateView = () => {
+        console.log("Update Notes triggered!")
+        this.retrieveNotes("")
+    }
 
     render() {
         return (
-            <div>
-                <section style={{ padding: "1em" }}>
-                    <TextInput />
+            <div className="container">
+                <section>
+                    <TextInput afterSubmit={this.updateView}/>
                 </section>
-                <section style={{ padding: "1em" }}>
-                    <SearchBar placeholder="Notitie..." onChange={(e) => {
+                <section>
+                    <SearchBar placeholder="Notities filteren..." onChange={(e) => {
                         this.handleSearchInput(e)
                     }} />
-                </section>
-                <div className={'note-list'}>
+                    <div className={'note-list'}>
                     {this.state.notes.reverse().map((note: Note) => (
                         <div key={note.id}>{this.displayDateTime(note.start)}{this.colorNote(note.note)}</div>
                     ))}
                 </div>
+                </section>
+                
             </div>
         )
     }

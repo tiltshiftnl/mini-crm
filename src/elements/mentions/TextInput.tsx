@@ -1,6 +1,6 @@
 import React from 'react'
 import moment, { Moment } from 'moment';
-import { convertToRaw, EditorState, Modifier, RawDraftContentState } from 'draft-js'
+import { ContentState, convertToRaw, EditorState, Modifier, RawDraftContentState } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin'
@@ -10,6 +10,9 @@ import TermService, { Term } from '../../shared/term-service';
 import { Button } from '@amsterdam/asc-ui';
 import NoteService, { Note } from '../../shared/note-service'
 
+type TextInputProps = {
+    afterSubmit: Function
+}
 type TextInputState = {
     editorState: EditorState
     note?: Note
@@ -24,13 +27,13 @@ type MentionProps = {
 
 type MentionEntity = {
     avatar: string
-    id: number 
+    id: number
     key: string
     name: string
     type: string
 }
 
-class TextInput extends React.Component {
+class TextInput extends React.Component<TextInputProps> {
     start: Moment | undefined;
     mentionPlugin: any
     hashtagPlugin: any
@@ -43,15 +46,13 @@ class TextInput extends React.Component {
     termService: TermService
     searchService: SearchService
     noteService: NoteService
-    constructor(props: any) {
+    constructor(props: TextInputProps) {
         super(props)
         this.searchService = new SearchService()
         this.termService = new TermService()
         this.noteService = new NoteService()
-        this.termService.retrieveTags().then((result: Term[]) => {
-            this.setState({ tags: result })
-        })
 
+        this.updateTags()
         this.hashtagPlugin = createHashtagPlugin()
         this.mentionPlugin = createMentionPlugin({
             mentionTrigger: '@',
@@ -108,11 +109,11 @@ class TextInput extends React.Component {
 
         _note.start = this.start?.toJSON()
 
-        _note.contacts = entities.filter((i: any) => {return i.type === "contact"}).map((item: any)=> {
+        _note.contacts = entities.filter((i: any) => { return i.type === "contact" }).map((item: any) => {
             return item.id
         })
 
-        _note.schools = entities.filter((i: any) => {return i.type === "school"}).map((item: any)=> {
+        _note.schools = entities.filter((i: any) => { return i.type === "school" }).map((item: any) => {
             return item.id
         })
 
@@ -154,11 +155,26 @@ class TextInput extends React.Component {
         this.setState({ editorState: this.insertText(text, this.state.editorState) });
     }
 
+    updateTags = () => {
+        this.termService.retrieveTags().then((result: Term[]) => {
+            this.setState({ tags: result })
+        })
+    }
     handleSubmit = (event: any) => {
-        if(this.state.note){
+        if (this.state.note) {
             const postNote: Note = this.state.note
             this.noteService.postNote(postNote).then((result: Note) => {
                 this.setState({ note: undefined })
+                this.props.afterSubmit()
+                this.updateTags()
+                const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(''), 'apply-entity');
+                this.setState({
+                    suggestions: [] as any[],
+                    tags: [],
+                    legend: "",
+                    editorState
+                })
+
             })
         }
         event.preventDefault()
