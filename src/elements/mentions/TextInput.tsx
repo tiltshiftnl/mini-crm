@@ -7,11 +7,14 @@ import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-
 import './TextInput.scss'
 import SearchService from '../../shared/search-service'
 import TermService, { Term } from '../../shared/term-service';
+import { Button } from '@amsterdam/asc-ui';
+import NoteService, { Note } from '../../shared/note-service'
 
 type TextInputState = {
-    editorState: EditorState,
-    tags: Term[],
-    suggestions: any[],
+    editorState: EditorState
+    note?: Note
+    tags: Term[]
+    suggestions: any[]
     legend: string
 }
 type MentionProps = {
@@ -20,7 +23,11 @@ type MentionProps = {
 }
 
 type MentionEntity = {
-    avatar: string, id: string, name: string, type: string
+    avatar: string
+    id: number 
+    key: string
+    name: string
+    type: string
 }
 
 class TextInput extends React.Component {
@@ -31,14 +38,16 @@ class TextInput extends React.Component {
         editorState: EditorState.createEmpty(),
         suggestions: [] as any[],
         tags: [],
-        legend: ""
+        legend: "",
     }
     termService: TermService
     searchService: SearchService
+    noteService: NoteService
     constructor(props: any) {
         super(props)
         this.searchService = new SearchService()
         this.termService = new TermService()
+        this.noteService = new NoteService()
         this.termService.retrieveTags().then((result: Term[]) => {
             this.setState({ tags: result })
         })
@@ -74,10 +83,13 @@ class TextInput extends React.Component {
     }
 
     onChange = (editorState: EditorState) => {
-        console.log("On change")
         const data: RawDraftContentState = convertToRaw(editorState.getCurrentContent())
-        // Extract text from the data
         const text: string = data.blocks[0].text
+        const _note: Note = {
+            id: 0,
+            note: text
+        }
+
         if (text.length > 0) {
             if (!this.start) {
                 this.start = moment()
@@ -89,17 +101,30 @@ class TextInput extends React.Component {
         const entities: MentionEntity[] = Object.keys(data.entityMap).map((key: string) => {
             return (data.entityMap[key].data.mention as any)
         })
-        const filtered = text.split(' ').filter((word: string) => {
+
+        _note.tags = text.split(' ').filter((word: string) => {
             return word.match(/\B(#[a-zA-Z]+\b)(?!;)/)
-        });
+        })
+
+        _note.start = this.start?.toJSON()
+
+        _note.contacts = entities.filter((i: any) => {return i.type === "contact"}).map((item: any)=> {
+            return item.id
+        })
+
+        _note.schools = entities.filter((i: any) => {return i.type === "school"}).map((item: any)=> {
+            return item.id
+        })
+
         // If the time difference is larger then a minute, display it.
         const timePassed = moment().diff(this.start, "minutes") > 0 ? "~" + moment().diff(this.start, 'minutes') + "m" : ""
         const timeDisplay: string = this.start ?
             this.start.format("hh:mm") + timePassed
             : ""
         this.setState({
-            legend: timeDisplay + " " + filtered.length + " trefwoord(en), " + entities.length + " scholen/personen",
-            editorState
+            legend: timeDisplay + " " + _note.tags.length + " trefwoord(en), " + _note.schools.length + " scholen " + _note.contacts.length + " personen",
+            editorState,
+            note: _note
         })
     }
 
@@ -129,30 +154,47 @@ class TextInput extends React.Component {
         this.setState({ editorState: this.insertText(text, this.state.editorState) });
     }
 
+    handleSubmit = (event: any) => {
+        if(this.state.note){
+            const postNote: Note = this.state.note
+            this.noteService.postNote(postNote).then((result: Note) => {
+                this.setState({ note: undefined })
+            })
+        }
+        event.preventDefault()
+    }
+
     render() {
         const { MentionSuggestions } = this.mentionPlugin
         const plugins = [this.mentionPlugin, this.hashtagPlugin]
         return (
             <>
-                <div className={'editor'}>
-                    <Editor
-                        editorState={this.state.editorState}
-                        onChange={this.onChange}
-                        plugins={plugins}
-                    />
-                    <MentionSuggestions onSearchChange={this.onSearchChange} className={"hit"}
-                        suggestions={this.state.suggestions} />
-                </div>
-                <div className="legend">{this.state.legend}</div>
-                <div className="tag-list">
-                {this.state.tags.map((value: Term) => (
-                    <div className={`tag  size${value.notes}`}
-                        onClick={this.sendTextToEditor.bind(this, " #" + value.tag + " ")}
-                        key={value.id}>
-                        {value.tag}
+                <form onSubmit={this.handleSubmit}>
+                    <div className={'editor'}>
+                        <Editor
+                            editorState={this.state.editorState}
+                            onChange={this.onChange}
+                            plugins={plugins}
+                        />
+                        <MentionSuggestions onSearchChange={this.onSearchChange}
+                            suggestions={this.state.suggestions} />
                     </div>
-                ))}
-                </div>
+                    <div className="legend">{this.state.legend}</div>
+                    <div className="tag-list">
+                        {this.state.tags.map((value: Term) => (
+                            <div className={`note-tag  size${value.notes}`}
+                                onClick={this.sendTextToEditor.bind(this, " #" + value.tag + " ")}
+                                key={value.id}>
+                                {value.tag}
+                            </div>
+                        ))}
+                    </div>
+                    <React.Fragment>
+                        <div className={"button-bar"}>
+                            <Button variant="secondary" taskflow>Opslaan</Button>
+                        </div>
+                    </React.Fragment>
+                </form>
             </>
         )
     }

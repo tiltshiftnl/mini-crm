@@ -7,6 +7,9 @@ export type Note = {
     contact_id?: number
     start?: string
     end?: string
+    tags?: string[],
+    schools?: number[],
+    contacts?: number[]
 }
 
 class NoteService {
@@ -35,7 +38,7 @@ class NoteService {
     }
 
     async postNote(note: Note) {
-        return fetch(this.config.API_BASE_URL + "/v1/note",
+        return fetch(this.config.API_BASE_URL + "/v2/note",
             {
                 method: "POST",
                 body: JSON.stringify(note),

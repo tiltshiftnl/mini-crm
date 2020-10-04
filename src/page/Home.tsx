@@ -1,4 +1,4 @@
-import { Button, SearchBar, Paragraph } from '@amsterdam/asc-ui'
+import { SearchBar } from '@amsterdam/asc-ui'
 import NoteService, { Note } from '../shared/note-service'
 import React from 'react'
 import TextInput from '../elements/mentions/TextInput'
@@ -7,7 +7,7 @@ import moment from 'moment'
 
 type HomePageState = {
     notes: Note[],
-    
+
     filteredNotes: []
 }
 
@@ -16,7 +16,6 @@ export class HomePage extends React.Component {
     noteService: NoteService
     readonly state: HomePageState = {
         notes: [],
-        
         filteredNotes: []
     }
 
@@ -47,31 +46,28 @@ export class HomePage extends React.Component {
         const textArray = text.split(' ')
         const coloredText = textArray.map(text => {
             if ((/\B(#[a-zA-Z]+\b)(?!;)/).test(text)) {
-              return <span className="note-tag">{text}</span>;
+                return <div key={text} className="note-tag">{text}</div>;
             }
             return text + ' ';
-          });
+        });
         return <div>{coloredText}</div>
     }
 
     displayDateTime = (text: string | undefined) => {
-        if(text){
+        if (text) {
             const start = moment(text).format("DD-MM-YYYY hh:mm")
             return <div className="note-start">{start}</div>
         }
         return ""
     }
 
+
+
     render() {
         return (
             <div>
                 <section style={{ padding: "1em" }}>
                     <TextInput />
-                    <React.Fragment>
-                        <div className={"button-bar"}>
-                            <Button variant="secondary" taskflow>Opslaan</Button>
-                        </div>
-                    </React.Fragment>
                 </section>
                 <section style={{ padding: "1em" }}>
                     <SearchBar placeholder="Notitie..." onChange={(e) => {
@@ -80,7 +76,7 @@ export class HomePage extends React.Component {
                 </section>
                 <div className={'note-list'}>
                     {this.state.notes.reverse().map((note: Note) => (
-                        <Paragraph key={note.id}>{this.displayDateTime(note.start)}{this.colorNote(note.note)}</Paragraph>
+                        <div key={note.id}>{this.displayDateTime(note.start)}{this.colorNote(note.note)}</div>
                     ))}
                 </div>
             </div>
