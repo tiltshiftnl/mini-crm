@@ -51,7 +51,7 @@ class ContactService {
             })
     }
 
-    async searchContacts(search: string) {
+    async search(search: string) {
         return fetch(this.config.API_BASE_URL + "/v1/contacts/" + search)
             .then(response => {
                 if (!response.ok) {

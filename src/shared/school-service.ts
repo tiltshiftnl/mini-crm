@@ -40,7 +40,7 @@ class SchoolService {
             })
     }
 
-    async searchSchools(search: string) {
+    async search(search: string) {
         return fetch(this.config.API_BASE_URL + "/v1/schools/" + search)
             .then(response => {
                 if (!response.ok) {

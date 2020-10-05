@@ -135,3 +135,22 @@
     content: "#";
   }
 }
+.public-DraftEditorPlaceholder-inner {
+  color: rgb(130, 130, 130);
+}
+.col-2 {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  @media (min-width: 800px){
+    flex-direction: row;
+  }
+  input:first-child {
+    margin-right: 0.5em;
+  }
+  input {
+    flex-basis: 0;
+    flex-grow: 1;
+    width: auto !important;
+  }
+}

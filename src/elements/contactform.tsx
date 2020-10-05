@@ -2,7 +2,7 @@ import { Card, CardContent, FormTitle, Label, Input, Button } from '@amsterdam/a
 import React from 'react'
 import ContactService, { Contact } from '../shared/contact-service'
 import { School } from '../shared/school-service'
-import { Autocomplete } from './autocomplete'
+import { Autocomplete } from './autocompleteSchool'
 import './card.scss'
 import { FormErrors } from './formerrors'
 

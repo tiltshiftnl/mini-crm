@@ -7,20 +7,25 @@ import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-
 import './TextInput.scss'
 import SearchService from '../../shared/search-service'
 import TermService, { Term } from '../../shared/term-service';
-import { Button } from '@amsterdam/asc-ui';
+import { Button, FormTitle, Input } from '@amsterdam/asc-ui';
 import NoteService, { Note } from '../../shared/note-service'
 import { extractHashtagsWithIndices } from '../../utils';
+import { Autocomplete } from '../autocompleteContact';
+import { Contact } from '../../shared/contact-service';
 
 type TextInputProps = {
     afterSubmit: Function
 }
+
 type TextInputState = {
     editorState: EditorState
     note?: Note
     tags: Term[]
     suggestions: any[]
     legend: string
+    contact?: Contact
 }
+
 type MentionProps = {
     className: string
     children: any
@@ -36,19 +41,21 @@ type MentionEntity = {
 
 class TextInput extends React.Component<TextInputProps> {
     start: Moment | undefined;
+    contact: any
     mentionPlugin: any
     hashtagPlugin: any
     readonly state: TextInputState = {
         editorState: EditorState.createEmpty(),
         suggestions: [] as any[],
         tags: [],
-        legend: "",
+        legend: ""
     }
     termService: TermService
     searchService: SearchService
     noteService: NoteService
     constructor(props: TextInputProps) {
         super(props)
+        this.contact = React.createRef()
         this.searchService = new SearchService()
         this.termService = new TermService()
         this.noteService = new NoteService()
@@ -124,7 +131,7 @@ class TextInput extends React.Component<TextInputProps> {
             this.start.format("hh:mm") + timePassed
             : ""
         this.setState({
-            legend: timeDisplay + " " + _note.tags.length + " trefwoord(en), " + _note.schools.length + " scholen " + _note.contacts.length + " personen",
+            legend: timeDisplay + " " + _note.tags.length + " term(en), " + _note.schools.length + " scholen " + _note.contacts.length + " personen",
             editorState,
             note: _note
         })
@@ -184,11 +191,20 @@ class TextInput extends React.Component<TextInputProps> {
     render() {
         const { MentionSuggestions } = this.mentionPlugin
         const plugins = [this.mentionPlugin, this.hashtagPlugin]
+        const defaultTerms: Term[] = this.state.tags.filter((t: Term) => { return t.type === "default" ? true : false })
+        const otherTerms: Term[] = this.state.tags.filter((t: Term) => { return t.type !== "default" ? true : false })
         return (
             <>
                 <form onSubmit={this.handleSubmit}>
+                    <FormTitle>Contact</FormTitle>
+                    <div className="col-2">
+                    <Autocomplete id="contact_name" ref={this.contact} onSelect={(e: Contact)=> {this.setState({contact: e})}}/>
+                    <Input id="contact_telephone" value={this.state.contact?.phone} placeholder="Telefoonnummer..." />
+                    </div>
+                    <FormTitle>Notitie</FormTitle>
                     <div className={'editor'}>
                         <Editor
+                            placeholder="Notitie..."
                             editorState={this.state.editorState}
                             onChange={this.onChange}
                             plugins={plugins}
@@ -196,9 +212,11 @@ class TextInput extends React.Component<TextInputProps> {
                         <MentionSuggestions onSearchChange={this.onSearchChange}
                             suggestions={this.state.suggestions} />
                     </div>
+
                     <div className="legend">{this.state.legend}</div>
+                    <FormTitle>Standaard termen</FormTitle>
                     <div className="tag-list">
-                        {this.state.tags.map((value: Term) => (
+                        {defaultTerms.map((value: Term) => (
                             <div className={`tag  size${value.notes}`}
                                 onClick={this.sendTextToEditor.bind(this, " #" + value.tag + " ")}
                                 key={value.id}>
@@ -206,6 +224,20 @@ class TextInput extends React.Component<TextInputProps> {
                             </div>
                         ))}
                     </div>
+                    {(otherTerms.length > 0) &&
+                        <>
+                            <FormTitle>Overige termen</FormTitle>
+                            <div className="tag-list">
+                                {otherTerms.map((value: Term) => (
+                                    <div className={`tag  size${value.notes}`}
+                                        onClick={this.sendTextToEditor.bind(this, " #" + value.tag + " ")}
+                                        key={value.id}>
+                                        {value.tag}
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    }
                     <React.Fragment>
                         <div className={"button-bar"}>
                             <Button variant="secondary" taskflow>Opslaan</Button>

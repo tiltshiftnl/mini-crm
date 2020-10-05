@@ -3,6 +3,7 @@ import Configuration from "./configuration"
 export type Term = {
     id: number,
     tag: string,
+    type?: string
     notes: number
 }
 

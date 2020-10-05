@@ -33,6 +33,7 @@ textarea {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    padding: 0.5em;
     @media (min-width: 800px){
         flex-direction: row;
      }
