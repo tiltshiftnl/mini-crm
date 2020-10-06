@@ -120,7 +120,7 @@ export class HomePage extends React.Component {
                         this.handleSearchInput(e)
                     }} />
                     <div className={'note-list'}>
-                        {this.state.notes.reverse().map((note: Note) => (
+                        {this.state.notes.map((note: Note) => (
                             <div key={note.id}>{this.displayDateTime(note.start)}{this.displayContactName(note.contact?.name)}{this.colorNote(note.note)}</div>
                         ))}
                     </div>
