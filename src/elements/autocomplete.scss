@@ -1,43 +1,33 @@
-.autocomplete-items {
-  position: relative;
-  width: auto;
-  margin-right: 0.5em;
-  div {
-    padding: 10px;
-    cursor: pointer;
-    background-color: #fff;
-    border-left: 1px solid #767676;
-    border-right: 1px solid #767676;
-  }
-  div:last-child {
-    border-bottom: 1px solid #767676;
-  }
-  div:hover {
-    /*when hovering an item:*/
-    background-color: whitesmoke;
-  }
-  .autocomplete-active {
-    /*when navigating through the items using the arrow keys:*/
-    background-color: DodgerBlue !important;
-    color: #ffffff;
-  }
-}
-
 .dropdown {
   position: relative;
   display: inline-block;
-}
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 12px 16px;
-  z-index: 1;
-}
+  .autocomplete-items {
+    position: absolute;
+    width: auto;
+    margin-right: 0.5em;
 
-.dropdown:hover .dropdown-content {
-  display: block;
+    div {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      border-left: 1px solid #767676;
+      border-right: 1px solid #767676;
+    }
+
+    div:last-child {
+      border-bottom: 1px solid #767676;
+    }
+
+    div:hover {
+      /*when hovering an item:*/
+      background-color: whitesmoke;
+    }
+
+    .autocomplete-active {
+      /*when navigating through the items using the arrow keys:*/
+      background-color: DodgerBlue !important;
+      color: #ffffff;
+    }
+  }
 }

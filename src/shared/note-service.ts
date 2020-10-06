@@ -4,11 +4,12 @@ import { Contact } from "./contact-service"
 export type Note = {
     id: number
     note: string
+    contact?: Contact
     contact_id?: number
     start?: string
     end?: string
-    tags?: string[],
-    schools?: number[],
+    tags?: string[]
+    schools?: number[]
     contacts?: number[]
 }
 

@@ -49,9 +49,6 @@ export class ContactForm extends React.Component<{}> {
             email: this.state.email,
             phone: this.state.phone,
         }    
-        if(this.school.current.state.selected){
-            postContact.school_id = this.school.current.state.selected.id
-        }
 
         this.contactService.postContact(postContact).then((result: Contact) => {
             console.log(result)

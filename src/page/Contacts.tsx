@@ -24,7 +24,7 @@ export class ContactPage extends React.Component {
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.filter = e.target.value.toLowerCase()
         if (this.filter !== "") {
-            this.contactService.search(this.filter).then((results: Contact[]) => {
+            this.contactService.searchContact(this.filter).then((results: Contact[]) => {
                 this.setState({ contacts: results, filteredContacts: results })
             })
         } else {

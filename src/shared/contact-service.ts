@@ -1,13 +1,10 @@
 import Configuration from "./configuration"
-import { School } from "./school-service"
 
 export type Contact = {
     id: number,
     name: string,
     phone: string,
-    email: string,
-    school_id?: number,
-    school?: School
+    email?: string,
 }
 
 class ContactService {
@@ -51,8 +48,25 @@ class ContactService {
             })
     }
 
-    async search(search: string) {
+    async searchContact(search: string) {
         return fetch(this.config.API_BASE_URL + "/v1/contacts/" + search)
+            .then(response => {
+                if (!response.ok) {
+                    this.handleResponseError(response)
+                }
+                return response.json()
+            })
+            .then(json => {
+                const items = json
+                return items
+            })
+            .catch(error => {
+                this.handleError(error)
+            })
+    }
+
+    async searchByPhone(search: string) {
+        return fetch(this.config.API_BASE_URL + "/v2/phone/" + search)
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)

@@ -3,16 +3,16 @@
   border: 1px solid #767676;
   cursor: text;
   padding: 10px;
-  min-height: 400px;
+  min-height: 200px;
   line-height: 1.4em;
 }
 
 .DraftEditor-editorContainer {
-  min-height: 400px;
+  min-height: 200px;
 }
 
 .public-DraftEditor-content {
-  min-height: 400px;
+  min-height: 200px;
 }
 
 .draftJsMentionPlugin__mention__29BEd,
@@ -135,19 +135,24 @@
     content: "#";
   }
 }
+
 .public-DraftEditorPlaceholder-inner {
   color: rgb(130, 130, 130);
 }
+
 .col-2 {
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  @media (min-width: 800px){
+
+  @media (min-width: 800px) {
     flex-direction: row;
   }
-  input:first-child {
+
+  >div:first-child {
     margin-right: 0.5em;
   }
+
   input {
     flex-basis: 0;
     flex-grow: 1;

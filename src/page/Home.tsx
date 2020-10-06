@@ -1,4 +1,4 @@
-import { SearchBar } from '@amsterdam/asc-ui'
+import { FormTitle, SearchBar } from '@amsterdam/asc-ui'
 import NoteService, { Note } from '../shared/note-service'
 import React from 'react'
 import TextInput from '../elements/mentions/TextInput'
@@ -93,6 +93,15 @@ export class HomePage extends React.Component {
         return ""
     }
 
+    displayContactName = (text: string | undefined) => {
+        console.log(text)
+        var i = 0;
+        if (text) {
+            return <div key={i++} className="note-contact">{text}</div>
+        }
+        return ""
+    }
+
 
     updateView = () => {
         console.log("Update Notes triggered!")
@@ -106,12 +115,13 @@ export class HomePage extends React.Component {
                     <TextInput afterSubmit={this.updateView} />
                 </section>
                 <section>
+                    <FormTitle>Logboek</FormTitle>
                     <SearchBar placeholder="Notities filteren..." onChange={(e) => {
                         this.handleSearchInput(e)
                     }} />
                     <div className={'note-list'}>
                         {this.state.notes.reverse().map((note: Note) => (
-                            <div key={note.id}>{this.displayDateTime(note.start)}{this.colorNote(note.note)}</div>
+                            <div key={note.id}>{this.displayDateTime(note.start)}{this.displayContactName(note.contact?.name)}{this.colorNote(note.note)}</div>
                         ))}
                     </div>
                 </section>

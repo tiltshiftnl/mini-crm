@@ -25,8 +25,20 @@ textarea {
 
 .note-start {
     font-style: italic;
+    display: inline;
     font-size: 0.8em;
     padding-right: 12px;
+}
+
+.note-contact {
+    font-style: italic;
+    display: inline;
+    font-size: 0.8em;
+    padding-right: 12px;
+    &:before {
+        content: "\2192";
+        margin-right: 6px
+    }
 }
 
 .container {

@@ -7,11 +7,12 @@ import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-
 import './TextInput.scss'
 import SearchService from '../../shared/search-service'
 import TermService, { Term } from '../../shared/term-service';
-import { Button, FormTitle, Input } from '@amsterdam/asc-ui';
+import { Button, FormTitle } from '@amsterdam/asc-ui';
 import NoteService, { Note } from '../../shared/note-service'
 import { extractHashtagsWithIndices } from '../../utils';
 import { Autocomplete } from '../autocompleteContact';
-import { Contact } from '../../shared/contact-service';
+import ContactService, { Contact } from '../../shared/contact-service';
+import { AutocompleteContactByPhone } from '../autocompleteContactByPhone';
 
 type TextInputProps = {
     afterSubmit: Function
@@ -41,7 +42,8 @@ type MentionEntity = {
 
 class TextInput extends React.Component<TextInputProps> {
     start: Moment | undefined;
-    contact: any
+    contact_name_ref: React.RefObject<Autocomplete>
+    contact_phone_ref: React.RefObject<AutocompleteContactByPhone>
     mentionPlugin: any
     hashtagPlugin: any
     readonly state: TextInputState = {
@@ -55,7 +57,8 @@ class TextInput extends React.Component<TextInputProps> {
     noteService: NoteService
     constructor(props: TextInputProps) {
         super(props)
-        this.contact = React.createRef()
+        this.contact_name_ref = React.createRef()
+        this.contact_phone_ref = React.createRef()
         this.searchService = new SearchService()
         this.termService = new TermService()
         this.noteService = new NoteService()
@@ -169,23 +172,45 @@ class TextInput extends React.Component<TextInputProps> {
         })
     }
     handleSubmit = (event: any) => {
-        if (this.state.note) {
-            const postNote: Note = this.state.note
-            this.noteService.postNote(postNote).then((result: Note) => {
-                this.setState({ note: undefined })
-                this.props.afterSubmit()
-                this.updateTags()
-                const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(''), 'apply-entity');
-                this.setState({
-                    suggestions: [] as any[],
-                    tags: [],
-                    legend: "",
-                    editorState
-                })
-
-            })
+        let note: Note = this.state.note || { id: 0, note: "" }
+        if (this.state.contact) {
+            note.contact_id = this.state.contact.id
+            this.postNote(note)
+        } else {
+            const contactService = new ContactService()
+            if (this.contact_name_ref.current && this.contact_phone_ref.current) {
+                if (this.contact_name_ref.current?.getValue().length > 4 || this.contact_phone_ref.current?.getValue().length > 4) {
+                    contactService.postContact({
+                        id: 0,
+                        name: this.contact_name_ref.current.getValue(),
+                        phone: this.contact_phone_ref.current.getValue(),
+                    }).then((c: Contact) => {
+                        // Add the new contact to the note and post it.
+                        note.contact_id = c.id
+                        this.postNote(note)
+                    })
+                }
+            }
         }
+
         event.preventDefault()
+    }
+
+    postNote = (note: Note) => {
+        this.noteService.postNote(note).then((result: Note) => {
+            this.setState({ note: undefined })
+            this.props.afterSubmit()
+            this.updateTags()
+            const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(''), 'apply-entity');
+            this.setState({
+                suggestions: [] as any[],
+                tags: [],
+                legend: "",
+                editorState
+            })
+
+        })
+
     }
 
     render() {
@@ -198,8 +223,25 @@ class TextInput extends React.Component<TextInputProps> {
                 <form onSubmit={this.handleSubmit}>
                     <FormTitle>Contact</FormTitle>
                     <div className="col-2">
-                    <Autocomplete id="contact_name" ref={this.contact} onSelect={(e: Contact)=> {this.setState({contact: e})}}/>
-                    <Input id="contact_telephone" value={this.state.contact?.phone} placeholder="Telefoonnummer..." />
+                        <Autocomplete id="contact_name" ref={this.contact_name_ref} onSelect={(e?: Contact) => {
+                            if (e) {
+                                this.setState({ contact: e })
+                                this.contact_phone_ref.current?.setValue(e.phone)
+                            } else {
+                                this.setState({ contact: undefined })
+                                //this.contact_phone_ref.current?.setValue("")
+                            }
+
+                        }} />
+                        <AutocompleteContactByPhone id="contact_phone" ref={this.contact_phone_ref} onSelect={(e?: Contact) => {
+                            if (e) {
+                                this.setState({ contact: e })
+                                this.contact_name_ref.current?.setValue(e.name)
+                            } else {
+                                this.setState({ contact: undefined })
+                                //this.contact_name_ref.current?.setValue("")
+                            }
+                        }} />
                     </div>
                     <FormTitle>Notitie</FormTitle>
                     <div className={'editor'}>

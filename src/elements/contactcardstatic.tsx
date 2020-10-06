@@ -13,10 +13,6 @@ export const ContactCardStatic = (contact: Contact) => {
                 </CardMedia>
                 <CardContent>
                     <Paragraph><b>Naam:</b> {contact.name}</Paragraph>
-                    {contact.school &&
-                        <Paragraph><b>School:</b> {contact.school.name}</Paragraph>
-                    }
-
                     <Paragraph><b>Telefoon:</b> {contact.phone}</Paragraph>
                     <Paragraph><b>Email:</b> {contact.email}</Paragraph>
 
