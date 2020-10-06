@@ -6,7 +6,7 @@ import { Contact } from '../../shared/service_contact'
 
 export const ContactCardStatic = (contact: Contact) => {
     return (
-        <div className={'contact-card'}>
+        <div className={'card'}>
             <Card horizontal>
                 <CardMedia maxWidth={60} >
                     <Icon><Student /></Icon>

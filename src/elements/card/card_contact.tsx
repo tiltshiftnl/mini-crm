@@ -6,7 +6,7 @@ import { Contact } from '../../shared/service_contact'
 import { Link } from 'react-router-dom'
 export const ContactCard = (contact: Contact) => {
     return (
-        <div className={'contact-card'}>
+        <div className={'card'}>
             <Link to={{
                 pathname: "/contact/" + contact.id,
                 state: {

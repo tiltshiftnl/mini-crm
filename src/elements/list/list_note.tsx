@@ -100,7 +100,7 @@ export class NoteList extends React.Component<NoteListProps> {
                     return <Link key={`school_${isSchool.id}`} className="school" to={{
                         pathname: "/school/" + isSchool.id,
                         state: {
-                            contact: isSchool
+                            school: isSchool
                         }
                     }}>{_t}</Link>
                 }

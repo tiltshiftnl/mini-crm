@@ -23,6 +23,23 @@ class SchoolService {
         this.config = new Configuration()
     }
 
+    async retrieveSchool(id: number): Promise<School> {
+        return fetch(this.config.API_BASE_URL + "/v2/school/" + id)
+            .then(response => {
+                if (!response.ok) {
+                    this.handleResponseError(response)
+                }
+                return response.json()
+            })
+            .then(json => {
+                const item = json
+                return item
+            })
+            .catch(error => {
+                this.handleError(error)
+            })
+    }
+
     async retrieveSchools() {
         return fetch(this.config.API_BASE_URL + "/v1/schools")
             .then(response => {

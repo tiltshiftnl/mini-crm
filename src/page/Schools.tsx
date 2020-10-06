@@ -2,6 +2,7 @@ import { SearchBar } from '@amsterdam/asc-ui'
 import React from 'react'
 import { SchoolCard } from '../elements/card/card_school'
 import SchoolService, { School } from '../shared/service_school'
+import './page.scss'
 
 type SchoolState = {
     schools: School[],
@@ -34,9 +35,6 @@ export class SchoolPage extends React.Component {
     render() {
         return (
             <section style={{ padding: "1em" }}>
-                {/* <FormTitle>
-                    <span>Zoeken naar school</span>
-                </FormTitle> */}
                 <SearchBar placeholder="School..." autoFocus onChange={(e) => {
                     this.handleSearchInput(e)
                 }} />

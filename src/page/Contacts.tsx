@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { ContactCard } from '../elements/card/card_contact'
 import ContactService, { Contact } from '../shared/service_contact'
-import './Contacts.scss'
+import './page.scss'
 type ContactState = {
     contacts: Contact[],
     filteredContacts: Contact[],
