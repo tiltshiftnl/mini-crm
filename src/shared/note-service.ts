@@ -1,5 +1,6 @@
 import Configuration from "./configuration"
 import { Contact } from "./contact-service"
+import { School } from "./school-service"
 
 export type Note = {
     id: number
@@ -9,8 +10,8 @@ export type Note = {
     start?: string
     end?: string
     tags?: string[]
-    schools?: number[]
-    contacts?: number[]
+    schools?: number[] | School[]
+    contacts?: number[] | Contact[]
 }
 
 class NoteService {

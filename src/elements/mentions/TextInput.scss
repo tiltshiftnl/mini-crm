@@ -136,6 +136,29 @@
   }
 }
 
+.contact {
+  color: #1461a0;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #fff;
+    background-color: #1461a0;
+  }
+}
+
+.school {
+  display: inline-block;
+  color: #ec0000;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #fff;
+    background-color: #1461a0;
+  }
+}
+
 .public-DraftEditorPlaceholder-inner {
   color: rgb(130, 130, 130);
 }

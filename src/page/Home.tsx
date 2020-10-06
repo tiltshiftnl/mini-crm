@@ -5,6 +5,9 @@ import TextInput from '../elements/mentions/TextInput'
 import './Home.scss'
 import moment from 'moment'
 import { extractHashtagsWithIndices } from '../utils'
+import { Contact } from '../shared/contact-service'
+import { School } from '../shared/school-service'
+import { Link } from 'react-router-dom'
 
 type HomePageState = {
     notes: Note[],
@@ -43,44 +46,57 @@ export class HomePage extends React.Component {
         this.retrieveNotes(e.target.value)
     }
 
-    colorNote = (text: string) => {
-        const _detectedTags = extractHashtagsWithIndices(text).map((hashtag: any) => {
+    colorNote = (note: Note) => {
+        let _raw = note.note
+        _raw.replace('  ', ' ').replace(' .', '.')
+        const _detectedTags = extractHashtagsWithIndices(_raw).map((hashtag: any) => {
             return hashtag.hashtag
         })
+        // Replace the hashtags
+        for (var tag of _detectedTags) {
+            _raw = _raw.replace('#' + tag, "[" + tag + "]")
+        }
 
-        const textArray = text.split(' ')
+        if (note.contacts) {
+            for (var contact of note.contacts) {
+                let _contact = (contact as Contact)
+                _raw = _raw.replace(_contact.name, "[" + _contact.name + "]")
+            }
+        }
+        if (note.schools) {
+            for (var school of note.schools) {
+                let _school = (school as School)
+                _raw = _raw.replace(_school.name, "[" + _school.name + "]")
+            }
+        }
 
+        const _textArray = _raw.split(/[\][{}]/)
         var i = 0;
-        const coloredText = textArray.map(text => {
-            let _t = text
-            let _lostchar = ' '
-            if (text.startsWith('#')) {
-                _t = text.substr(1, text.length)
-                if (_t.endsWith('.')) {
-                    _lostchar = '.'
-                    _t = _t.substr(0, _t.length - 1)
-                }
-                if (_t.endsWith('?')) {
-                    _lostchar = '?'
-                    _t = _t.substr(0, _t.length - 1)
-                }
-                if (_t.endsWith(';')) {
-                    _lostchar = ';'
-                    _t = _t.substr(0, _t.length - 1)
-                }
-                if (_t.endsWith(':')) {
-                    _lostchar = ':'
-                    _t = _t.substr(0, _t.length - 1)
-                }
-            }
-            console.log(_t)
-
+        const coloredText = _textArray.map(_t => {
+            // Is it a tag?
             if (_detectedTags.indexOf(_t) > -1) {
-                console.log('hit')
-                return <><span key={i++} className="tag">{_t}</span>{_lostchar} </>;
+                return <span key={i++} className="tag">{_t}</span>;
             }
-            return _t + ' ';
-        });
+
+            // Is it a school?
+            if (note.schools) {
+                const isSchool: School | undefined =(note.schools as School[]).find((s: School) => s.name === _t)
+                if(isSchool) {
+                    return <Link key={i++} className="school"  to={`/school/${isSchool.id}`}>{_t}</Link>
+                }
+            }
+
+            // Is it a contact?
+            if (note.contacts) {
+                const isContact: Contact | undefined =(note.contacts as Contact[]).find((c: Contact) => c.name === _t)
+                if(isContact) {
+                    return <Link key={i++} className="contact" to={`/contact/${isContact.id}`}>{_t}</Link>
+                }
+            }
+
+            // No, it is plain text
+            return _t
+        })
         return <div>{coloredText}</div>
     }
 
@@ -121,7 +137,7 @@ export class HomePage extends React.Component {
                     }} />
                     <div className={'note-list'}>
                         {this.state.notes.map((note: Note) => (
-                            <div key={note.id}>{this.displayDateTime(note.start)}{this.displayContactName(note.contact?.name)}{this.colorNote(note.note)}</div>
+                            <div key={note.id}>{this.displayDateTime(note.start)}{this.displayContactName(note.contact?.name)}{this.colorNote(note)}</div>
                         ))}
                     </div>
                 </section>
