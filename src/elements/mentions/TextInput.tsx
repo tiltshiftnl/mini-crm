@@ -185,6 +185,9 @@ class TextInput extends React.Component<TextInputProps> {
                         name: this.contact_name_ref.current.getValue(),
                         phone: this.contact_phone_ref.current.getValue(),
                     }).then((c: Contact) => {
+                        this.setState({
+                            contact: c
+                        })
                         // Add the new contact to the note and post it.
                         note.contact_id = c.id
                         this.postNote(note)
