@@ -14,7 +14,7 @@ class ContactService {
         this.config = new Configuration()
     }
 
-    async retrieveContact(id: number) {
+    async retrieveContact(id: number): Promise<Contact> {
         return fetch(this.config.API_BASE_URL + "/v1/contact/" + id)
             .then(response => {
                 if (!response.ok) {
@@ -31,7 +31,7 @@ class ContactService {
             })
     }
 
-    async retrieveContacts() {
+    async retrieveContacts(): Promise<Contact[]> {
         return fetch(this.config.API_BASE_URL + "/v1/contacts")
             .then(response => {
                 if (!response.ok) {
@@ -48,7 +48,7 @@ class ContactService {
             })
     }
 
-    async searchContact(search: string) {
+    async searchContact(search: string): Promise<Contact[]> {
         return fetch(this.config.API_BASE_URL + "/v1/contacts/" + search)
             .then(response => {
                 if (!response.ok) {
@@ -65,7 +65,7 @@ class ContactService {
             })
     }
 
-    async searchByPhone(search: string) {
+    async searchByPhone(search: string): Promise<Contact[]> {
         return fetch(this.config.API_BASE_URL + "/v2/phone/" + search)
             .then(response => {
                 if (!response.ok) {
@@ -82,7 +82,7 @@ class ContactService {
             })
     }
 
-    async postContact(contact: Contact) {
+    async postContact(contact: Contact): Promise<Contact> {
         return fetch(this.config.API_BASE_URL + "/v1/contact",
             {
                 method: "POST",

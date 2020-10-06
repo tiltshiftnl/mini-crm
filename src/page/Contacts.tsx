@@ -1,8 +1,8 @@
 import { Button, SearchBar } from '@amsterdam/asc-ui'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ContactCard } from '../elements/contactcard'
-import ContactService, { Contact } from '../shared/contact-service'
+import { ContactCard } from '../elements/card/card_contact'
+import ContactService, { Contact } from '../shared/service_contact'
 import './Contacts.scss'
 type ContactState = {
     contacts: Contact[],

@@ -1,10 +1,10 @@
 import { Card, CardContent, FormTitle, Label, Input, Button } from '@amsterdam/asc-ui'
 import React from 'react'
-import ContactService, { Contact } from '../shared/contact-service'
-import { School } from '../shared/school-service'
-import { Autocomplete } from './autocompleteSchool'
-import './card.scss'
-import { FormErrors } from './formerrors'
+import ContactService, { Contact } from '../../shared/service_contact'
+import { School } from '../../shared/service_school'
+import { Autocomplete } from '../autocomplete/autocomplete_school'
+import './form.scss'
+import { FormErrors } from './form_errors'
 
 type ContactFormState = {
     nameValid: Boolean,
@@ -42,7 +42,6 @@ export class ContactForm extends React.Component<{}> {
     }
 
     handleSubmit = (event: any) => {
-        console.log(this.school)
         const postContact: Contact = {
             id: 0,
             name: this.state.name,
@@ -50,9 +49,7 @@ export class ContactForm extends React.Component<{}> {
             phone: this.state.phone,
         }    
 
-        this.contactService.postContact(postContact).then((result: Contact) => {
-            console.log(result)
-        })
+        this.contactService.postContact(postContact).then((result: Contact) => {})
         event.preventDefault()
     }
 

@@ -2,13 +2,13 @@ import { Card, CardMedia, Icon, CardContent, Paragraph, CardActions } from '@ams
 import { ChevronRight, Student } from '@amsterdam/asc-assets'
 import React from 'react'
 import './card.scss'
-import { Contact } from '../shared/contact-service'
+import { Contact } from '../../shared/service_contact'
 import { Link } from 'react-router-dom'
 export const ContactCard = (contact: Contact) => {
     return (
         <div className={'contact-card'}>
             <Link to={{
-                pathname: "/contact/" + contact.id + "/details",
+                pathname: "/contact/" + contact.id,
                 state: {
                     contact: contact
                 }

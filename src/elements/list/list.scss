@@ -1,0 +1,36 @@
+.note-list {
+    .tag {
+        color: #000;
+        cursor: pointer;
+        background-color: #e6e6e6;
+
+        &:hover {
+            color: #fff;
+            background-color: #1461a0;
+        }
+
+        &:before {
+            content: "#";
+        }
+    }
+
+    .contact {
+        color: #1461a0;
+        text-decoration: underline;
+
+        &:hover {
+            color: #fff;
+            background-color: #1461a0;
+        }
+    }
+
+    .school {
+        color: #ec0000;
+        text-decoration: underline;
+
+        &:hover {
+            color: #fff;
+            background-color: #1461a0;
+        }
+    }
+}

@@ -2,7 +2,7 @@ import { Card, CardMedia, Icon, CardContent, Paragraph } from '@amsterdam/asc-ui
 import { Student } from '@amsterdam/asc-assets'
 import React from 'react'
 import './card.scss'
-import { Contact } from '../shared/contact-service'
+import { Contact } from '../../shared/service_contact'
 
 export const ContactCardStatic = (contact: Contact) => {
     return (

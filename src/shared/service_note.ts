@@ -1,6 +1,6 @@
 import Configuration from "./configuration"
-import { Contact } from "./contact-service"
-import { School } from "./school-service"
+import { Contact } from "./service_contact"
+import { School } from "./service_school"
 
 export type Note = {
     id: number

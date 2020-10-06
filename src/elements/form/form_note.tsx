@@ -4,21 +4,21 @@ import { ContentState, convertToRaw, EditorState, Modifier, RawDraftContentState
 import Editor from 'draft-js-plugins-editor'
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin'
-import './TextInput.scss'
-import SearchService from '../../shared/search-service'
-import TermService, { Term } from '../../shared/term-service';
+import './form_note.scss'
+import SearchService from '../../shared/service_search'
+import TermService, { Term } from '../../shared/service_term';
 import { Button, FormTitle } from '@amsterdam/asc-ui';
-import NoteService, { Note } from '../../shared/note-service'
+import NoteService, { Note } from '../../shared/service_note'
 import { extractHashtagsWithIndices } from '../../utils';
-import { Autocomplete } from '../autocompleteContact';
-import ContactService, { Contact } from '../../shared/contact-service';
-import { AutocompleteContactByPhone } from '../autocompleteContactByPhone';
+import { Autocomplete } from '../autocomplete/autocomplete_contact';
+import ContactService, { Contact } from '../../shared/service_contact';
+import { AutocompleteContactByPhone } from '../autocomplete/autocomplete_contact_by_phone';
 
-type TextInputProps = {
+type NoteFormProps = {
     afterSubmit: Function
 }
 
-type TextInputState = {
+type NoteFormState = {
     editorState: EditorState
     note?: Note
     tags: Term[]
@@ -40,13 +40,13 @@ type MentionEntity = {
     type: string
 }
 
-class TextInput extends React.Component<TextInputProps> {
+class NoteForm extends React.Component<NoteFormProps> {
     start: Moment | undefined;
     contact_name_ref: React.RefObject<Autocomplete>
     contact_phone_ref: React.RefObject<AutocompleteContactByPhone>
     mentionPlugin: any
     hashtagPlugin: any
-    readonly state: TextInputState = {
+    readonly state: NoteFormState = {
         editorState: EditorState.createEmpty(),
         suggestions: [] as any[],
         tags: [],
@@ -55,7 +55,7 @@ class TextInput extends React.Component<TextInputProps> {
     termService: TermService
     searchService: SearchService
     noteService: NoteService
-    constructor(props: TextInputProps) {
+    constructor(props: NoteFormProps) {
         super(props)
         this.contact_name_ref = React.createRef()
         this.contact_phone_ref = React.createRef()
@@ -295,4 +295,4 @@ class TextInput extends React.Component<TextInputProps> {
 
 }
 
-export default TextInput
+export default NoteForm

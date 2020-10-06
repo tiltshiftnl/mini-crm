@@ -2,7 +2,7 @@ import { Card, CardMedia, Icon, CardContent, Paragraph, CardActions } from '@ams
 import { Building, ChevronRight } from '@amsterdam/asc-assets'
 import React from 'react'
 import './card.scss'
-import { School } from '../shared/school-service'
+import { School } from '../../shared/service_school'
 
 export const SchoolCard = (school: School) => {
     return (

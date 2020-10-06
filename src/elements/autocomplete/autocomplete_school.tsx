@@ -1,6 +1,6 @@
 import { Input } from '@amsterdam/asc-ui'
 import React from 'react'
-import SchoolService, { School } from '../shared/school-service'
+import SchoolService, { School } from '../../shared/service_school'
 import { AutoCompleteState } from './autocomplete'
 import './autocomplete.scss'
 

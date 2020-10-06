@@ -1,4 +1,4 @@
-import regexes from './hashtagRegex';
+import regexes from './hashtag_regex';
 
 /* eslint-disable */
 export function extractHashtagsWithIndices(text) {
