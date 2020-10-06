@@ -35,6 +35,7 @@ textarea {
     display: inline;
     font-size: 0.8em;
     padding-right: 12px;
+
     &:before {
         content: "\2192";
         margin-right: 6px
@@ -46,9 +47,11 @@ textarea {
     justify-content: center;
     flex-direction: column;
     padding: 0.5em;
-    @media (min-width: 800px){
+
+    @media (min-width: 800px) {
         flex-direction: row;
-     }
+    }
+
     section {
         flex-basis: 0;
         flex-grow: 1;
@@ -59,43 +62,38 @@ textarea {
 
 .note-list {
     .tag {
-        display: inline-block;
-        margin: 3px;
-        padding: 0;
-        color: #000000;
+        color: #000;
         cursor: pointer;
-        background: #e6e6e6;
-      
+        background-color: #e6e6e6;
+
         &:hover {
-          color: #fff;
-          background-color: #1461a0;
+            color: #fff;
+            background-color: #1461a0;
         }
-      
+
         &:before {
-          content: "#";
+            content: "#";
         }
-      }
-      
-      .contact {
+    }
+
+    .contact {
         color: #1461a0;
-        cursor: pointer;
         text-decoration: underline;
-      
+
         &:hover {
-          color: #fff;
-          background-color: #1461a0;
+            color: #fff;
+            background-color: #1461a0;
         }
-      }
-      
-      .school {
+    }
+
+    .school {
         display: inline-block;
         color: #ec0000;
-        cursor: pointer;
         text-decoration: underline;
-      
+
         &:hover {
-          color: #fff;
-          background-color: #1461a0;
+            color: #fff;
+            background-color: #1461a0;
         }
-      }
+    }
 }
