@@ -51,7 +51,7 @@ export class ContactForm extends React.Component<{}> {
     }
 
     validateForm() {
-        this.setState({ formValid: this.state.nameValid && this.state.phoneValid });
+        this.setState({ formValid: this.state.nameValid });
     }
 
     handleUserInput(e: any) {
@@ -109,7 +109,7 @@ export class ContactForm extends React.Component<{}> {
                                 <Input name="name" placeholder="Naam van het contact..." onChange={this.handleUserInput} value={this.state.name} required />
                             </div>
                             <div className={`${this.errorClass(this.state.formErrors.phone)}`}>
-                                <Label htmlFor="phone" label="Telefoonnummer:" />
+                                <Label htmlFor="phone" label="Telefoonnummer (optioneel):" />
                                 <Input placeholder="Telefoonnummer..." name="phone" onChange={this.handleUserInput} value={this.state.phone} />
                             </div>
                             <div className={`${this.errorClass(this.state.formErrors.email)}`}>

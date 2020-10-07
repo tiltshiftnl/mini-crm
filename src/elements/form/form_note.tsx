@@ -229,7 +229,9 @@ class NoteForm extends React.Component<NoteFormProps> {
                         <Autocomplete id="contact_name" ref={this.contact_name_ref} onSelect={(e?: Contact) => {
                             if (e) {
                                 this.setState({ contact: e })
-                                this.contact_phone_ref.current?.setValue(e.phone)
+                                if(e.phone){
+                                    this.contact_phone_ref.current?.setValue(e.phone)
+                                }
                             } else {
                                 this.setState({ contact: undefined })
                                 //this.contact_phone_ref.current?.setValue("")

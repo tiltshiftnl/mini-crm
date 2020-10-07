@@ -3,7 +3,7 @@ import Configuration from "./configuration"
 export type Contact = {
     id: number,
     name: string,
-    phone: string,
+    phone?: string,
     email?: string,
 }
 
