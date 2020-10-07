@@ -44,7 +44,6 @@ export class ContactDetailForm extends React.Component<RouteProps> {
     componentDidUpdate(prevProps: RouteProps) {
         if(this.props.location && prevProps.location && prevProps.location.pathname !== this.props.location.pathname) {
             this.refresh()
-            this.forceUpdate()
         }
     }
 
