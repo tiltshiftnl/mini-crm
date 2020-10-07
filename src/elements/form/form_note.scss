@@ -144,20 +144,19 @@
 
 .col-2 {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-direction: column;
-
+  & > div {
+    margin: 6px 0 6px 0 !important;
+  }
   @media (min-width: 800px) {
     flex-direction: row;
-  }
-
-  >div:first-child {
-    margin-right: 0.5em;
+    
   }
 
   input {
     flex-basis: 0;
     flex-grow: 1;
-    width: auto !important;
+    width: 100% !important;
   }
 }

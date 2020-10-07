@@ -13,35 +13,6 @@ textarea {
     height: auto !important;
 }
 
-
-.note-tag {
-    display: inline-block;
-    padding-left: 3px;
-    padding-right: 3px;
-    margin: 3px;
-    border: 1px solid #1461a0;
-    color: #1461a0;
-}
-
-.note-start {
-    font-style: italic;
-    display: inline;
-    font-size: 0.8em;
-    padding-right: 12px;
-}
-
-.note-contact {
-    font-style: italic;
-    display: inline;
-    font-size: 0.8em;
-    padding-right: 12px;
-
-    &:before {
-        content: "\2192";
-        margin-right: 6px
-    }
-}
-
 .container {
     display: flex;
     justify-content: center;

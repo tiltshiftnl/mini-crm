@@ -30,32 +30,44 @@ export class NoteList extends React.Component<NoteListProps> {
     constructor(props: NoteListProps) {
         super(props)
         this.noteService = new NoteService()
-        
-        if(this.props.contact){
-            // Retrieve notes for a contact?
-            console.log("retrieve notes for " + this.props.contact.name)
-            this.retrieveNotes(this.props.contact.name)
-        } else if(this.props.school){
-            // Retrieve notes for a school?
-            this.retrieveNotes(this.props.school.name)
-        } else {
-            // Retrieve all notes?
-            this.retrieveNotes("")
-        }
-        
+        this.retrieveNotes("")        
     }
+
     retrieveNotes = (filter: string) => {
         this.filter = filter.toLowerCase()
-        this.noteService.retrieveNotes().then((notes: Note[]) => {
-            this.setState({
-                notes: notes.filter((note: Note) => {
-                    return note.note.toLowerCase().indexOf(this.filter) !== -1
-                }),
-                filteredNotes: notes
+        if(this.props.contact){
+            // Retrieve notes for a contact?
+            this.noteService.retrieveNotesContact(this.props.contact).then((notes: Note[]) => {
+                this.setState({
+                    notes: notes.filter((note: Note) => {
+                        return note.note.toLowerCase().indexOf(this.filter) !== -1
+                    }),
+                    filteredNotes: notes
+                })
             })
-        })
+        } else if(this.props.school){
+            // Retrieve notes for a school?
+            this.noteService.retrieveNotesSchool(this.props.school).then((notes: Note[]) => {
+                this.setState({
+                    notes: notes.filter((note: Note) => {
+                        return note.note.toLowerCase().indexOf(this.filter) !== -1
+                    }),
+                    filteredNotes: notes
+                })
+            })
+        } else {
+            this.noteService.retrieveNotes().then((notes: Note[]) => {
+                this.setState({
+                    notes: notes.filter((note: Note) => {
+                        return note.note.toLowerCase().indexOf(this.filter) !== -1
+                    }),
+                    filteredNotes: notes
+                })
+            })
+        }
 
     }
+
     handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.retrieveNotes(e.target.value)
     }
@@ -132,9 +144,14 @@ export class NoteList extends React.Component<NoteListProps> {
         }
         return ""
     }
-    displayContactName = (text: string | undefined) => {
-        if (text) {
-            return <div key={text} className="note-contact">{text}</div>
+    displayContactName = (note: Note) => {
+        if (note.contact) {
+            return <Link key={note.contact.name} className="note-contact" to={{
+                pathname: "/contact/" + note.contact.id,
+                state: {
+                    contact: note.contact
+                }
+            }}>{note.contact.name}</Link>
         }
         return ""
     }
@@ -149,7 +166,7 @@ export class NoteList extends React.Component<NoteListProps> {
                 {this.state.notes && this.state.notes.map((note: Note) => (
                     <div key={`note_${note.start}`}>
                         {this.displayDateTime(note.start)}
-                        {this.displayContactName(note.contact?.name)}
+                        {this.displayContactName(note)}
                         {this.colorNote(note)}
                     </div>
                 ))}

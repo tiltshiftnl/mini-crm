@@ -20,9 +20,44 @@ class NoteService {
         this.config = new Configuration()
     }
 
-    async retrieveNotes(contact?: Contact) {
+    async retrieveNotes() {
         var uri = this.config.API_BASE_URL + "/v2/notes";
-        if (contact) uri += "/" + contact.id;
+        return fetch(uri)
+            .then(response => {
+                if (!response.ok) {
+                    this.handleResponseError(response)
+                }
+                return response.json()
+            })
+            .then(json => {
+                const items = json
+                return items
+            })
+            .catch(error => {
+                this.handleError(error)
+            })
+    }
+
+    async retrieveNotesContact(contact: Contact) {
+        var uri = this.config.API_BASE_URL + "/v2/contact/" + contact.id + "/notes";
+        return fetch(uri)
+            .then(response => {
+                if (!response.ok) {
+                    this.handleResponseError(response)
+                }
+                return response.json()
+            })
+            .then(json => {
+                const items = json
+                return items
+            })
+            .catch(error => {
+                this.handleError(error)
+            })
+    }
+
+    async retrieveNotesSchool(school: School) {
+        var uri = this.config.API_BASE_URL + "/v2/school/" + school.id + "/notes";
         return fetch(uri)
             .then(response => {
                 if (!response.ok) {

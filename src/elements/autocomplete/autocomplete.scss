@@ -3,25 +3,21 @@
   display: inline-block;
 
   .autocomplete-items {
-    position: absolute;
-    width: auto;
-    margin-right: 0.5em;
+    position: relative;
+    width: 100%;
 
     div {
       padding: 10px;
       cursor: pointer;
-      background-color: #fff;
       border-left: 1px solid #767676;
       border-right: 1px solid #767676;
-    }
-
-    div:last-child {
-      border-bottom: 1px solid #767676;
-    }
-
-    div:hover {
-      /*when hovering an item:*/
-      background-color: whitesmoke;
+      &:last-child {
+        border-bottom: 1px solid #767676;
+      }
+      &:hover {
+        /*when hovering an item:*/
+        background-color: whitesmoke;
+      }
     }
 
     .autocomplete-active {
