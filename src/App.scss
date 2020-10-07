@@ -1,6 +1,7 @@
 #header {
     z-index: 1000;
 }
+
 .menu-item-ul {
     position: sticky;
     z-index: 1000;
@@ -24,7 +25,7 @@
     flex-direction: row;
     font-weight: 400;
     background-color: rgb(245, 245, 245);
-    box-shadow: 0 4px rgba(0,0,0,0.04);
+    box-shadow: 0 4px rgba(0, 0, 0, 0.04);
 }
 
 .menu-item-li {
@@ -48,6 +49,7 @@
     &.active {
         color: #ec0000 !important;
     }
+
     color: #000;
     font-weight: 500;
     position: relative;
@@ -56,7 +58,7 @@
     border-left: 8px solid transparent;
     background-color: transparent;
     height: 100%;
-    
+
     align-items: center;
     -webkit-align-items: center;
     -webkit-box-align: center;
@@ -84,8 +86,10 @@
     line-height: 20px;
     padding: 12px 16px;
     padding-left: 16px;
-    -webkit-transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
-    transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
+    -webkit-transition: color 0.1s ease-in-out,
+    background-color 0.1s ease-in-out;
+    transition: color 0.1s ease-in-out,
+    background-color 0.1s ease-in-out;
 
     &.active {
         background-color: #ffffff;
@@ -108,11 +112,14 @@
     }
 }
 
-.sc-eCApGN.fRSorr {
-   margin: 0 !important;
-   background-color: #767676;
-   cursor: not-allowed;
-   &:hover {
-    background-color: #767676;
-   }
+.disable-button {
+    button[type=submit] {
+        margin: 0 !important;
+        background-color: #767676;
+        cursor: not-allowed;
+
+        &:hover {
+            background-color: #767676;
+        }
+    }
 }

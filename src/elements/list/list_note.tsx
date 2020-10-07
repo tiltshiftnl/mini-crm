@@ -162,7 +162,7 @@ export class NoteList extends React.Component<NoteListProps> {
     render() {
         return <>
             {!this.props.hideSearch &&
-                <SearchBar placeholder="Notities filteren..." onChange={(e) => {
+                <SearchBar  className="disable-button" placeholder="Notities filteren..." onChange={(e) => {
                     this.handleSearchInput(e)
                 }} onClear={() => {
                     this.retrieveNotes("")

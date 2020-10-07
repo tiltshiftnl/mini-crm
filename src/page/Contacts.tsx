@@ -39,7 +39,7 @@ export class ContactPage extends React.Component {
     render() {
         return (
             <section style={{ padding: "1em" }}>
-                <SearchBar placeholder="Contact..." autoFocus onChange={(e) => {
+                <SearchBar className="disable-button" placeholder="Contact..." autoFocus onChange={(e) => {
                     this.handleSearchInput(e)
                 }} onClear={() => {
                     this.filter = ""

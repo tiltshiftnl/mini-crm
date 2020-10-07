@@ -39,7 +39,7 @@ export class SchoolPage extends React.Component {
     render() {
         return (
             <section style={{ padding: "1em" }}>
-                <SearchBar placeholder="School..." autoFocus onChange={(e) => {
+                <SearchBar className="disable-button" placeholder="School..." autoFocus onChange={(e) => {
                     this.handleSearchInput(e)
                 }} onClear={() => {
                     this.filter = ""
