@@ -18,17 +18,17 @@ const App = () => {
       <BrowserRouter>
         <Header tall={false} title="Service centrum Onderwijs" fullWidth={false} homeLink="" />
         <ul className="menu-item-ul">
-          <li className="menu-item-li"><NavLink className="menu-item" activeClassName="active" to="/">Notities</NavLink></li>
+          <li className="menu-item-li"><NavLink className="menu-item" exact activeClassName="active" to="/">Notities</NavLink></li>
           <li className="menu-item-li"><NavLink className="menu-item" activeClassName="active" to="/schools">Scholen</NavLink></li>
           <li className="menu-item-li"><NavLink className="menu-item" activeClassName="active" to="/contacts">Contacten</NavLink></li>
         </ul>
         <Switch>
-          <Route path="/schools" exact component={SchoolPage}/>
+          <Route path="/schools" component={SchoolPage}/>
           <Route path="/school/:id" exact component={SchoolDetailForm}/>
           <Route path="/contacts/new" exact component={ContactForm}/>
           <Route path="/contact/:id" exact component={ContactDetailForm}/>
-          <Route path="/contacts" exact component={ContactPage} />
-          <Route path="/" exact component={HomePage} />
+          <Route path="/contacts" component={ContactPage} />
+          <Route path="/" component={HomePage} />
         </Switch>
       </BrowserRouter>
     </div>
