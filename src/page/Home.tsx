@@ -26,7 +26,7 @@ export class HomePage extends React.Component {
                 </section>
                 <section>
                     <FormTitle>Logboek</FormTitle>
-                    <NoteList />
+                    <NoteList ref={this.note_list_ref}/>
                 </section>
 
             </div>
