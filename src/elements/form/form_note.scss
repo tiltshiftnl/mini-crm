@@ -9,10 +9,18 @@
 
 .DraftEditor-editorContainer {
   min-height: 200px;
+  position: relative;
 }
 
 .public-DraftEditor-content {
   min-height: 200px;
+}
+
+.public-DraftEditorPlaceholder-inner {
+  color: rgb(130, 130, 130);
+  position: absolute;
+  z-index: 1;
+  height: 0;
 }
 
 .draftJsMentionPlugin__mention__29BEd,
@@ -138,20 +146,18 @@
   }
 }
 
-.public-DraftEditorPlaceholder-inner {
-  color: rgb(130, 130, 130);
-}
-
 .col-2 {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  & > div {
+
+  &>div {
     margin: 6px 0 6px 0 !important;
   }
+
   @media (min-width: 800px) {
     flex-direction: row;
-    
+
   }
 
   input {
