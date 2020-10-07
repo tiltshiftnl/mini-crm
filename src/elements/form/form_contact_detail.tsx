@@ -24,11 +24,13 @@ export class ContactDetailForm extends React.Component<RouteProps> {
         this.service = new ContactService()
     }
 
-    componentDidMount() {
+
+    refresh() {
         if (this.props.location && this.props.location.state && (this.props.location?.state as any).contact) {
             this.setState({
                 contact: (this.props.location?.state as any).contact
             })
+
         } else {
             this.id = (this.props as any).match.params.id
             this.service.retrieveContact(this.id).then(result => {
@@ -37,6 +39,17 @@ export class ContactDetailForm extends React.Component<RouteProps> {
                 })
             })
         }
+    }
+
+    componentDidUpdate(prevProps: RouteProps) {
+        if(this.props.location && prevProps.location && prevProps.location.pathname !== this.props.location.pathname) {
+            this.refresh()
+            this.forceUpdate()
+        }
+    }
+
+    componentDidMount() {
+        this.refresh()
     }
 
     render() {
