@@ -1,4 +1,4 @@
-import { Card, CardContent, FormTitle, Label, Input, Button } from '@amsterdam/asc-ui'
+import { Card, CardContent, FormTitle, Label, Input, Button, Alert } from '@amsterdam/asc-ui'
 import React from 'react'
 import ContactService, { Contact } from '../../shared/service_contact'
 import { School } from '../../shared/service_school'
@@ -6,26 +6,34 @@ import './form.scss'
 import { FormErrors } from './form_errors'
 
 type ContactFormState = {
-    nameValid: Boolean,
-    phoneValid: Boolean,
-    formValid: Boolean,
-    school: School | any,
-    name: string,
-    email: string,
-    phone: string,
-    formErrors: { email: string, phone: string, name: string }
+    nameValid: boolean
+    emailValid: boolean
+    phoneValid: boolean
+    formValid: boolean
+    school: School | any
+    name: string
+    email: string
+    phone: string
+    formErrors: { email: string, phone: string, name: string, duplicate: string }
+    submitted: {success: boolean, message: string, className: string}
 }
 
 export class ContactForm extends React.Component<{}> {
     readonly state: ContactFormState = {
         school: {},
         nameValid: false,
-        phoneValid: false,
+        phoneValid: true,
         formValid: false,
+        emailValid: true,
         name: "",
         email: "",
         phone: "",
-        formErrors: { email: '', phone: '', name: '' },
+        formErrors: { email: '', phone: '', name: '', duplicate: '' },
+        submitted: {
+            success: false,
+            message: '',
+            className: "success"
+        }
     }
 
     contactService: ContactService
@@ -44,14 +52,52 @@ export class ContactForm extends React.Component<{}> {
             name: this.state.name,
             email: this.state.email,
             phone: this.state.phone,
-        }    
+        }
 
-        this.contactService.postContact(postContact).then((result: Contact) => {})
+        this.contactService.postContact(postContact).then((result: Contact) => {
+            this.setState({
+                formValid: false,
+                name: postContact.name || "",
+                phone: postContact.phone || "",
+                email: postContact.email || ""
+            })
+            this.setState({
+                submitted: {
+                    success: true,
+                    message: postContact.name + " aangemaakt.",
+                    className: ''
+                }
+            })
+            setTimeout(() => {
+                this.setState({
+                    name: "",
+                    phone: "",
+                    email: "",
+                    submitted: {
+                        success: true,
+                        message: postContact.name + " aangemaakt.",
+                        className: 'hide'
+                    }
+                })
+            }, 1000)
+
+        }).catch(error => {
+            this.setState({
+                formValid: false,
+                formErrors: {
+                    name: "",
+                    phone: "",
+                    email: "",
+                    duplicate: "Contact bestaat al, aanmaken mislukt"
+                }
+            })
+        })
+
         event.preventDefault()
     }
 
     validateForm() {
-        this.setState({ formValid: this.state.nameValid });
+        this.setState({ formValid: this.state.nameValid && this.state.emailValid && this.state.phoneValid });
     }
 
     handleUserInput(e: any) {
@@ -68,18 +114,19 @@ export class ContactForm extends React.Component<{}> {
         let fieldValidationErrors = this.state.formErrors
         let phoneValid = this.state.phoneValid
         let nameValid = this.state.nameValid
-
+        let emailValid = this.state.emailValid
+        fieldValidationErrors.duplicate = ""
         switch (fieldName) {
-            // case 'email':
-            //     emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
-            //     fieldValidationErrors.email = emailValid ? '' : 'Email is ongeldig'
-            //     break
+            case 'email':
+                emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) || value === ""
+                fieldValidationErrors.email = emailValid ? '' : 'Email is ongeldig'
+                break
             case 'name':
                 nameValid = value.length >= 6
                 fieldValidationErrors.name = nameValid ? '' : 'Naam is te kort'
                 break
             case 'phone':
-                phoneValid = value.match(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s/0-9]*$/g)
+                phoneValid = value.match(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s/0-9]*$/g) || value === ""
                 fieldValidationErrors.phone = phoneValid ? '' : 'Telefoonnummer bevat ongeldige tekens'
                 break
             default:
@@ -90,6 +137,7 @@ export class ContactForm extends React.Component<{}> {
             formErrors: fieldValidationErrors,
             nameValid: nameValid,
             phoneValid: phoneValid,
+            emailValid: emailValid
         }, this.validateForm);
     }
 
@@ -118,6 +166,10 @@ export class ContactForm extends React.Component<{}> {
                             </div>
                             <p />
                             <FormErrors formErrors={this.state.formErrors} />
+                            {this.state.submitted.success &&
+                                <Alert className={this.state.submitted.className}>{this.state.submitted.message}</Alert>
+                            }
+                            <p/>
                             <Button variant="secondary" disabled={!this.state.formValid} taskflow>Aanmaken</Button>
                         </CardContent>
                     </Card>

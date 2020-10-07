@@ -1,18 +1,14 @@
-import Configuration from "./configuration"
+import { Service } from "./service"
 
 export type Contact = {
-    id: number,
-    name: string,
-    phone?: string,
-    email?: string,
+    id: number
+    name: string
+    phone?: string
+    email?: string
 }
 
-class ContactService {
+class ContactService extends Service {
     contacts: Contact[] = []
-    config: Configuration
-    constructor() {
-        this.config = new Configuration()
-    }
 
     async retrieveContact(id: number): Promise<Contact> {
         return fetch(this.config.API_BASE_URL + "/v1/contact/" + id)
@@ -103,14 +99,6 @@ class ContactService {
             .catch(error => {
                 this.handleError(error)
             })
-    }
-
-    handleResponseError(response: Response) {
-        throw new Error("HTTP error, status = " + response.status)
-    }
-
-    handleError(error: Error) {
-        console.log(error.message)
     }
 }
 

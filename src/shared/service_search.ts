@@ -1,13 +1,8 @@
-import Configuration from "./configuration"
+import { Service } from "./service"
 
-class SearchService {
-    config: Configuration
-    constructor() {
-        this.config = new Configuration()
-    }
-
+class SearchService extends Service {
     async searchAny(search: string) {
-        if(search.length === 0) {
+        if (search.length === 0) {
             return []
         }
         return fetch(this.config.API_BASE_URL + "/v1/search/" + search)
@@ -24,14 +19,6 @@ class SearchService {
             .catch(error => {
                 this.handleError(error)
             })
-    }
-
-    handleResponseError(response: Response) {
-        throw new Error("HTTP error, status = " + response.status)
-    }
-
-    handleError(error: Error) {
-        console.log(error.message)
     }
 }
 

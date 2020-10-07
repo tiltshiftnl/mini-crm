@@ -1,18 +1,13 @@
-import Configuration from "./configuration"
+import { Service } from "./service"
 
 export type Term = {
-    id: number,
-    tag: string,
+    id: number
+    tag: string
     type?: string
     notes: number
 }
 
-class TermService {
-    config: Configuration
-    constructor() {
-        this.config = new Configuration()
-    }
-
+class TermService extends Service {
     async retrieveTags() {
         return fetch(this.config.API_BASE_URL + "/v1/tags")
             .then(response => {
@@ -28,14 +23,6 @@ class TermService {
             .catch(error => {
                 this.handleError(error)
             })
-    }
-
-    handleResponseError(response: Response) {
-        throw new Error("HTTP error, status = " + response.status)
-    }
-
-    handleError(error: Error) {
-        console.log(error.message)
     }
 }
 

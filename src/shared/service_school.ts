@@ -1,27 +1,19 @@
-import Configuration from "./configuration"
+import { Service } from "./service"
 
 export type School = {
-    id: number,
-    school_id: number,
-    lrkp_id?: string,
-    school_type: string,
-    brin?: string,
-    vestigingsnummer?: string,
-    name: string,
-    type: string,
+    id: number
+    school_id: number
+    lrkp_id?: string
+    school_type: string
+    brin?: string
+    vestigingsnummer?: string
+    name: string
+    type: string
     address: string
 }
 
-type SchoolResponse = {
-    results: School[]
-}
-
-class SchoolService {
+class SchoolService extends Service {
     schools: School[] = []
-    config: Configuration
-    constructor() {
-        this.config = new Configuration()
-    }
 
     async retrieveSchool(id: number): Promise<School> {
         return fetch(this.config.API_BASE_URL + "/v2/school/" + id)
@@ -72,14 +64,6 @@ class SchoolService {
             .catch(error => {
                 this.handleError(error)
             })
-    }
-
-    handleResponseError(response: Response) {
-        throw new Error("HTTP error, status = " + response.status)
-    }
-
-    handleError(error: Error) {
-        console.log(error.message)
     }
 }
 
