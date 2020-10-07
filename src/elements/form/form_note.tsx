@@ -223,7 +223,7 @@ class NoteForm extends React.Component<NoteFormProps> {
         const otherTerms: Term[] = this.state.tags.filter((t: Term) => { return t.type !== "default" ? true : false })
         return (
             <>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} autoComplete="off">
                     <FormTitle>Contact</FormTitle>
                     <div className="col-2">
                         <Autocomplete id="contact_name" ref={this.contact_name_ref} onSelect={(e?: Contact) => {

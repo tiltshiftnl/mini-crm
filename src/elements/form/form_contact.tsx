@@ -100,7 +100,7 @@ export class ContactForm extends React.Component<{}> {
     render() {
         return (
             <div className={'contact-card'}>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} autoComplete="off">
                     <FormTitle>Nieuw contact aanmaken</FormTitle>
                     <Card horizontal>
                         <CardContent>
