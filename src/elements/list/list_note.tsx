@@ -34,8 +34,7 @@ export class NoteList extends React.Component<NoteListProps> {
     }
 
     componentDidUpdate(prevProps: NoteListProps){
-        console.log("I need to update too!")
-        this.retrieveNotes("")  
+        //this.retrieveNotes("")  
     }
 
     retrieveNotes = (filter: string) => {
