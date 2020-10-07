@@ -3,7 +3,8 @@
         color: #000;
         cursor: pointer;
         background-color: #e6e6e6;
-
+        margin: 3px;
+        padding: 4px 8px;
         &:hover {
             color: #fff;
             background-color: #1461a0;
@@ -33,14 +34,6 @@
             background-color: #1461a0;
         }
     }
-    .note-tag {
-        display: inline-block;
-        padding-left: 3px;
-        padding-right: 3px;
-        margin: 3px;
-        border: 1px solid #1461a0;
-        color: #1461a0;
-    }
     
     .note-start {
         font-style: italic;
@@ -48,17 +41,23 @@
         font-size: 0.8em;
         padding-right: 12px;
     }
-    
+
+    .note-arrow {
+        &:before {
+            content: "\2192";
+            margin-right: 6px;
+            text-decoration: none !important;
+        }
+    }
+
     .note-contact {
         font-style: italic;
         display: inline;
+        text-decoration: underline;
         font-size: 0.8em;
         padding-right: 12px;
     
-        &:before {
-            content: "\2192";
-            margin-right: 6px
-        }
+        
         &:hover {
             color: #fff;
             background-color: #1461a0;

@@ -170,6 +170,7 @@ export class NoteList extends React.Component<NoteListProps> {
                 {this.state.notes && this.state.notes.map((note: Note) => (
                     <div key={`note_${note.start}`}>
                         {this.displayDateTime(note.start)}
+                        <span className="note-arrow"/>
                         {this.displayContactName(note)}
                         {this.colorNote(note)}
                     </div>

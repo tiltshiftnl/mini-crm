@@ -19,7 +19,9 @@ export const ContactCard = (contact: Contact) => {
                     </CardMedia>
                     <CardContent>
                         <Paragraph><b>Naam:</b> {contact.name}</Paragraph>
-                        <Paragraph><b>Telefoon:</b> {contact.phone}</Paragraph>
+                        {contact.phone &&
+                            <Paragraph><b>Telefoon:</b> {contact.phone}</Paragraph>
+                        }
                         {contact.email &&
                             <Paragraph><b>Email:</b> {contact.email}</Paragraph>
                         }
