@@ -2,13 +2,11 @@ import { Card, CardContent, FormTitle, Label, Input, Button } from '@amsterdam/a
 import React from 'react'
 import ContactService, { Contact } from '../../shared/service_contact'
 import { School } from '../../shared/service_school'
-import { Autocomplete } from '../autocomplete/autocomplete_school'
 import './form.scss'
 import { FormErrors } from './form_errors'
 
 type ContactFormState = {
     nameValid: Boolean,
-    emailValid: Boolean,
     phoneValid: Boolean,
     formValid: Boolean,
     school: School | any,
@@ -22,7 +20,6 @@ export class ContactForm extends React.Component<{}> {
     readonly state: ContactFormState = {
         school: {},
         nameValid: false,
-        emailValid: false,
         phoneValid: false,
         formValid: false,
         name: "",
@@ -54,7 +51,7 @@ export class ContactForm extends React.Component<{}> {
     }
 
     validateForm() {
-        this.setState({ formValid: this.state.emailValid && this.state.nameValid && this.state.phoneValid });
+        this.setState({ formValid: this.state.nameValid && this.state.phoneValid });
     }
 
     handleUserInput(e: any) {
@@ -69,15 +66,14 @@ export class ContactForm extends React.Component<{}> {
 
     validateField(fieldName: string, value: any) {
         let fieldValidationErrors = this.state.formErrors
-        let emailValid = this.state.emailValid
         let phoneValid = this.state.phoneValid
         let nameValid = this.state.nameValid
 
         switch (fieldName) {
-            case 'email':
-                emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
-                fieldValidationErrors.email = emailValid ? '' : 'Email is ongeldig'
-                break
+            // case 'email':
+            //     emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
+            //     fieldValidationErrors.email = emailValid ? '' : 'Email is ongeldig'
+            //     break
             case 'name':
                 nameValid = value.length >= 6
                 fieldValidationErrors.name = nameValid ? '' : 'Naam is te kort'
@@ -93,7 +89,6 @@ export class ContactForm extends React.Component<{}> {
         this.setState({
             formErrors: fieldValidationErrors,
             nameValid: nameValid,
-            emailValid: emailValid,
             phoneValid: phoneValid,
         }, this.validateForm);
     }
@@ -118,11 +113,9 @@ export class ContactForm extends React.Component<{}> {
                                 <Input placeholder="Telefoonnummer..." name="phone" onChange={this.handleUserInput} value={this.state.phone} />
                             </div>
                             <div className={`${this.errorClass(this.state.formErrors.email)}`}>
-                                <Label htmlFor="email" label="Emailadres:" />
+                                <Label htmlFor="email" label="Emailadres (optioneel):" />
                                 <Input placeholder="Email..." name="email" onChange={this.handleUserInput} value={this.state.email} />
                             </div>
-                            <Label htmlFor="school" label="School:" />
-                            <Autocomplete id="school" ref={this.school} />
                             <p />
                             <FormErrors formErrors={this.state.formErrors} />
                             <Button variant="secondary" disabled={!this.state.formValid} taskflow>Aanmaken</Button>

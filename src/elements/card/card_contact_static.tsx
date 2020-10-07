@@ -14,8 +14,9 @@ export const ContactCardStatic = (contact: Contact) => {
                 <CardContent>
                     <Paragraph><b>Naam:</b> {contact.name}</Paragraph>
                     <Paragraph><b>Telefoon:</b> {contact.phone}</Paragraph>
-                    <Paragraph><b>Email:</b> {contact.email}</Paragraph>
-
+                    {contact.email &&
+                        <Paragraph><b>Email:</b> {contact.email}</Paragraph>
+                    }
                 </CardContent>
             </Card>
         </div>
