@@ -79,7 +79,7 @@ class NoteForm extends React.Component<NoteFormProps> {
                     }
                 }
                 const onClick = () => {
-                    alert("You clicked me!")
+                    // alert("You clicked me!")
                 }
                 return (
                     <span
