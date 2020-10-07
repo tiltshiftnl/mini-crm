@@ -6,7 +6,6 @@ import { School } from '../../shared/service_school'
 import { Link } from 'react-router-dom'
 
 export const SchoolCard = (school: School) => {
-    console.log(school)
     return (
         <div className={'card'}>
             <Link to={{

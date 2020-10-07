@@ -27,7 +27,6 @@ export class SchoolDetailForm extends React.Component<RouteProps> {
 
 
     componentDidMount() {
-        console.log(this.props.location)
         if (this.props.location && this.props.location.state && (this.props.location?.state as any).contact) {
             this.setState({
                 school: (this.props.location?.state as any).school
@@ -35,7 +34,6 @@ export class SchoolDetailForm extends React.Component<RouteProps> {
         } else {
             this.id = (this.props as any).match.params.id
             this.service.retrieveSchool(this.id).then(result => {
-                console.log(result)
                 this.setState({
                     school: result
                 })
