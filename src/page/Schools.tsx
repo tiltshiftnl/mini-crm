@@ -21,8 +21,7 @@ export class SchoolPage extends React.Component {
         this.schoolService = new SchoolService()
     }
 
-    handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.filter = e.target.value.toLowerCase()
+    retrieveSchools = () => {
         if (this.filter !== "") {
             this.schoolService.search(this.filter).then((results: School[]) => {
                 this.setState({ schools: results, filteredSchools: results })
@@ -32,11 +31,19 @@ export class SchoolPage extends React.Component {
         }
     }
 
+    handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.filter = e.target.value.toLowerCase()
+        this.retrieveSchools()
+    }
+
     render() {
         return (
             <section style={{ padding: "1em" }}>
                 <SearchBar placeholder="School..." autoFocus onChange={(e) => {
                     this.handleSearchInput(e)
+                }} onClear={() => {
+                    this.filter = ""
+                    this.retrieveSchools()
                 }} />
                 {this.state.filteredSchools.map((value: School) => (
                     <SchoolCard key={value.id} {...value} />

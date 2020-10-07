@@ -30,16 +30,16 @@ export class NoteList extends React.Component<NoteListProps> {
     constructor(props: NoteListProps) {
         super(props)
         this.noteService = new NoteService()
-        this.retrieveNotes("")        
+        this.retrieveNotes("")
     }
 
-    componentDidUpdate(prevProps: NoteListProps){
+    componentDidUpdate(prevProps: NoteListProps) {
         //this.retrieveNotes("")  
     }
 
     retrieveNotes = (filter: string) => {
         this.filter = filter.toLowerCase()
-        if(this.props.contact){
+        if (this.props.contact) {
             // Retrieve notes for a contact?
             this.noteService.retrieveNotesContact(this.props.contact).then((notes: Note[]) => {
                 this.setState({
@@ -49,7 +49,7 @@ export class NoteList extends React.Component<NoteListProps> {
                     filteredNotes: notes
                 })
             })
-        } else if(this.props.school){
+        } else if (this.props.school) {
             // Retrieve notes for a school?
             this.noteService.retrieveNotesSchool(this.props.school).then((notes: Note[]) => {
                 this.setState({
@@ -140,7 +140,7 @@ export class NoteList extends React.Component<NoteListProps> {
         })
         return <div>{coloredText}</div>
     }
-    
+
     displayDateTime = (text: string | undefined) => {
         if (text) {
             const start = moment(text).format("DD-MM-YYYY hh:mm")
@@ -161,16 +161,18 @@ export class NoteList extends React.Component<NoteListProps> {
     }
     render() {
         return <>
-            {!this.props.hideSearch && 
-            <SearchBar placeholder="Notities filteren..." onChange={(e) => {
-                this.handleSearchInput(e)
-            }} />
+            {!this.props.hideSearch &&
+                <SearchBar placeholder="Notities filteren..." onChange={(e) => {
+                    this.handleSearchInput(e)
+                }} onClear={() => {
+                    this.retrieveNotes("")
+                }} />
             }
             <div className={'note-list'}>
                 {this.state.notes && this.state.notes.map((note: Note) => (
                     <div key={`note_${note.start}`}>
                         {this.displayDateTime(note.start)}
-                        <span className="note-arrow"/>
+                        <span className="note-arrow" />
                         {this.displayContactName(note)}
                         {this.colorNote(note)}
                     </div>

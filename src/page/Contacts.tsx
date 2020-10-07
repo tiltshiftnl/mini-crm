@@ -21,8 +21,7 @@ export class ContactPage extends React.Component {
         this.contactService = new ContactService()
     }
 
-    handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.filter = e.target.value.toLowerCase()
+    retrieveContacts = () => {
         if (this.filter !== "") {
             this.contactService.searchContact(this.filter).then((results: Contact[]) => {
                 this.setState({ contacts: results, filteredContacts: results })
@@ -32,12 +31,20 @@ export class ContactPage extends React.Component {
         }
     }
 
+    handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.filter = e.target.value.toLowerCase()
+        this.retrieveContacts()
+    }
+
     render() {
         return (
             <section style={{ padding: "1em" }}>
                 <SearchBar placeholder="Contact..." autoFocus onChange={(e) => {
                     this.handleSearchInput(e)
-                }} />
+                }} onClear={() => {
+                    this.filter = ""
+                    this.retrieveContacts()
+                }}/>
                 {this.state.filteredContacts.map((value: Contact) => (
                     <ContactCard key={value.id} {...value} />
                 ))}
