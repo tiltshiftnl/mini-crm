@@ -1,6 +1,7 @@
 import { Service } from "./service"
 
 export type School = {
+    type: string
     id: number
     school_id: number
     lrkp_id?: string
@@ -8,15 +9,24 @@ export type School = {
     brin?: string
     vestigingsnummer?: string
     name: string
-    type: string
+    grondslag?: string
+    schoolwijzer_url?: string
+    heeft_voorschool?: boolean
+    leerlingen?: number
     address: string
+    postcode?: string
+    suburb?: string
+    website?: string
+    email?: string
+    phone?: string
+    city?: string
 }
 
 class SchoolService extends Service {
     schools: School[] = []
 
     async retrieveSchool(id: number): Promise<School> {
-        return fetch(this.config.API_BASE_URL + "/v2/school/" + id)
+        return fetch(this.config.API_BASE_URL + "/v3/school/" + id)
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
