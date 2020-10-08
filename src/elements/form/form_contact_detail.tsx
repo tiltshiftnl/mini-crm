@@ -1,18 +1,15 @@
 import React from 'react'
-import { RouteProps } from 'react-router-dom'
 import ContactService, { Contact } from '../../shared/service_contact'
 import { ContactCardStatic } from '../card/card_contact_static'
 import { NoteList } from '../list/list_note'
 import './form.scss'
+import { DetailForm } from './form_detail'
 
 type ContactDetailFormState = {
     contact?: Contact,
 }
 
-export class ContactDetailForm extends React.Component<RouteProps> {
-    id: number = 0
-    router: any
-
+export class ContactDetailForm extends DetailForm {
     readonly state: ContactDetailFormState = {
         contact: undefined
     }
@@ -24,12 +21,17 @@ export class ContactDetailForm extends React.Component<RouteProps> {
         this.service = new ContactService()
     }
 
-
     refresh() {
         if (this.props.location && this.props.location.state && (this.props.location?.state as any).contact) {
+            const _contact = (this.props.location?.state as any).contact
             this.setState({
-                contact: (this.props.location?.state as any).contact
+                contact: _contact
             })
+            if (this.note_list_ref.current) {
+                this.note_list_ref.current.setState({
+                    contact: _contact
+                })
+            }
 
         } else {
             this.id = (this.props as any).match.params.id
@@ -37,18 +39,14 @@ export class ContactDetailForm extends React.Component<RouteProps> {
                 this.setState({
                     contact: result
                 })
+                if (this.note_list_ref.current) {
+                    this.note_list_ref.current.setState({
+                        contact: result
+                    })
+                }
             })
         }
-    }
 
-    componentDidUpdate(prevProps: RouteProps) {
-        if(this.props.location && prevProps.location && prevProps.location.pathname !== this.props.location.pathname) {
-            this.refresh()
-        }
-    }
-
-    componentDidMount() {
-        this.refresh()
     }
 
     render() {
@@ -58,7 +56,7 @@ export class ContactDetailForm extends React.Component<RouteProps> {
                     {this.state.contact &&
                         <>
                             <ContactCardStatic {...this.state.contact} />
-                            <NoteList hideSearch={true} contact={this.state.contact} />
+                            <NoteList hideSearch={true} contact={this.state.contact} ref={this.note_list_ref} />
                         </>
                     }
                 </section>

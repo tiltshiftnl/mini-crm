@@ -33,8 +33,10 @@ export class NoteList extends React.Component<NoteListProps> {
         this.retrieveNotes("")
     }
 
-    componentDidUpdate(prevProps: NoteListProps) {
-        //this.retrieveNotes("")  
+    componentDidUpdate = (prevProps: NoteListProps) => {
+        if(prevProps.contact !== this.props.contact) {
+            this.retrieveNotes("")
+        }
     }
 
     retrieveNotes = (filter: string) => {
