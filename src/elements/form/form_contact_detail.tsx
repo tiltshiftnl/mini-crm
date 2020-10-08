@@ -2,7 +2,6 @@ import React from 'react'
 import ContactService, { Contact } from '../../shared/service_contact'
 import { ContactCardStatic } from '../card/card_contact_static'
 import { NoteList } from '../list/list_note'
-import './form.scss'
 import { DetailForm } from './form_detail'
 
 type ContactDetailFormState = {

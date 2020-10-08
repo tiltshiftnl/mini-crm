@@ -2,7 +2,6 @@ import React from 'react'
 import SchoolService, { School } from '../../shared/service_school'
 import { SchoolCardStatic } from '../card/card_school_static'
 import { NoteList } from '../list/list_note'
-import './form.scss'
 import { DetailForm } from './form_detail'
 
 type SchoolDetailFormState = {
