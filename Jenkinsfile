@@ -1,14 +1,14 @@
 #!groovy
 
 // Project Settings for Deployment
-String PROJECTNAME = "cspp-mini-crm"
+String PROJECTNAME = "scpp_mini_crm"
 String CONTAINERDIR = "."
 String PRODUCTION_BRANCH = "master"
 String ACCEPTANCE_BRANCH = "development"
 String PLAYBOOK = 'deploy.yml'
 
 // All other data uses variables, no changes needed for static
-String CONTAINERNAME = "fixxx/cspp_mini-crm:${env.BUILD_NUMBER}"
+String CONTAINERNAME = "fixxx/scpp_mini_crm:${env.BUILD_NUMBER}"
 String DOCKERFILE="Dockerfile"
 String BRANCH = "${env.BRANCH_NAME}"
 
