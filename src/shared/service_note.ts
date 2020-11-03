@@ -1,4 +1,4 @@
-import Configuration from "./configuration"
+import { Service } from "./service"
 import { Contact } from "./service_contact"
 import { School } from "./service_school"
 
@@ -14,13 +14,8 @@ export type Note = {
     contacts?: number[] | Contact[]
 }
 
-class NoteService {
-    config: Configuration
-    constructor() {
-        this.config = new Configuration()
-    }
-
-    async retrieveNotes() {
+class NoteService extends Service<Note>{
+    async retrieve(): Promise<Note[]> {
         var uri = this.config.API_BASE_URL + "/v2/notes";
         return fetch(uri)
             .then(response => {
@@ -36,6 +31,12 @@ class NoteService {
             .catch(error => {
                 this.handleError(error)
             })
+    }
+
+    async search() {
+        return new Promise<Note[]>(() => {
+            return [] as Note[]
+        })
     }
 
     async retrieveNotesContact(contact: Contact) {
@@ -95,14 +96,6 @@ class NoteService {
             .catch(error => {
                 this.handleError(error)
             })
-    }
-
-    handleResponseError(response: Response) {
-        throw new Error("HTTP error, status = " + response.status)
-    }
-
-    handleError(error: Error) {
-        console.log(error.message)
     }
 }
 

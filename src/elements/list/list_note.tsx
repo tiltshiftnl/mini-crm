@@ -1,4 +1,4 @@
-import { SearchBar } from '@amsterdam/asc-ui'
+import { CompactPager, SearchBar } from '@amsterdam/asc-ui'
 import moment from 'moment'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -17,6 +17,7 @@ type NoteListProps = {
 type NoteListState = {
     notes: Note[]
     filteredNotes: Note[]
+    currentPage: number
 }
 
 export class NoteList extends React.Component<NoteListProps> {
@@ -24,13 +25,15 @@ export class NoteList extends React.Component<NoteListProps> {
     noteService: NoteService
     readonly state: NoteListState = {
         notes: [],
-        filteredNotes: []
+        filteredNotes: [],
+        currentPage: 1
     }
 
     constructor(props: NoteListProps) {
         super(props)
         this.noteService = new NoteService()
         this.retrieveNotes("")
+
     }
 
     componentDidUpdate = (prevProps: NoteListProps) => {
@@ -45,29 +48,29 @@ export class NoteList extends React.Component<NoteListProps> {
             // Retrieve notes for a contact?
             this.noteService.retrieveNotesContact(this.props.contact).then((notes: Note[]) => {
                 this.setState({
-                    notes: notes.filter((note: Note) => {
+                    filteredNotes: notes.filter((note: Note) => {
                         return note.note.toLowerCase().indexOf(this.filter) !== -1
                     }),
-                    filteredNotes: notes
+                    notes: notes
                 })
             })
         } else if (this.props.school) {
             // Retrieve notes for a school?
             this.noteService.retrieveNotesSchool(this.props.school).then((notes: Note[]) => {
                 this.setState({
-                    notes: notes.filter((note: Note) => {
+                    filteredNotes: notes.filter((note: Note) => {
                         return note.note.toLowerCase().indexOf(this.filter) !== -1
                     }),
-                    filteredNotes: notes
+                    notes: notes
                 })
             })
         } else {
-            this.noteService.retrieveNotes().then((notes: Note[]) => {
+            this.noteService.retrieve().then((notes: Note[]) => {
                 this.setState({
-                    notes: notes.filter((note: Note) => {
+                    filteredNotes: notes.filter((note: Note) => {
                         return note.note.toLowerCase().indexOf(this.filter) !== -1
                     }),
-                    filteredNotes: notes
+                    notes: notes
                 })
             })
         }
@@ -171,15 +174,28 @@ export class NoteList extends React.Component<NoteListProps> {
                 }} />
             }
             <div className={'note-list'}>
-                {this.state.notes && this.state.notes.map((note: Note) => (
+                {this.state.filteredNotes && this.state.filteredNotes.map((note: Note) => (
                     <div key={`note_${note.start}`}>
                         {this.displayDateTime(note.start)}
                         <span className="note-arrow" />
                         {this.displayContactName(note)}
                         {this.colorNote(note)}
                     </div>
-                ))}
+                )).splice(this.state.currentPage, 5)}
             </div>
+            <CompactPager
+      page={this.state.currentPage}
+      pageSize={20}
+      collectionSize={60}
+      onPageChange={(page) => this.setCurrentPage(page)}
+    />
         </>
+    }
+
+    setCurrentPage = (page: number) => {
+        console.log(page)
+        this.setState({
+            currentPage: page
+        })
     }
 }

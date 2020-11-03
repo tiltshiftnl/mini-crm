@@ -7,7 +7,7 @@ export type Contact = {
     email?: string
 }
 
-class ContactService extends Service {
+class ContactService extends Service<Contact> {
     contacts: Contact[] = []
 
     async retrieveContact(id: number): Promise<Contact> {
@@ -27,7 +27,7 @@ class ContactService extends Service {
             })
     }
 
-    async retrieveContacts(): Promise<Contact[]> {
+    async retrieve(): Promise<Contact[]> {
         return fetch(this.config.API_BASE_URL + "/v1/contacts")
             .then(response => {
                 if (!response.ok) {
@@ -44,7 +44,7 @@ class ContactService extends Service {
             })
     }
 
-    async searchContact(search: string): Promise<Contact[]> {
+    async search(search: string): Promise<Contact[]> {
         return fetch(this.config.API_BASE_URL + "/v1/contacts/" + search)
             .then(response => {
                 if (!response.ok) {

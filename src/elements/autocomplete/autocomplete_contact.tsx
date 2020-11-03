@@ -43,7 +43,7 @@ export class Autocomplete extends React.Component<{ id: string, onSelect: Functi
         this.setState({ input: e.target.value, showOptions: true })
         this.filter = e.target.value.toLowerCase()
         if (this.filter !== "") {
-            this.service.searchContact(this.filter).then((results: Contact[]) => {
+            this.service.search(this.filter).then((results: Contact[]) => {
                 this.setState({ items: results, filtered: results })
             })
         } else {
