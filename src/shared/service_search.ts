@@ -1,7 +1,15 @@
 import { Service } from "./service"
 
-class SearchService extends Service {
-    async searchAny(search: string) {
+export type Hit = {
+    avatar: string
+    id: number
+    key: string
+    name: string
+    type: "contact" | "school"
+}
+
+class SearchService extends Service<Hit> {
+    async search(search: string) {
         if (search.length === 0) {
             return []
         }
@@ -19,6 +27,11 @@ class SearchService extends Service {
             .catch(error => {
                 this.handleError(error)
             })
+    }
+    async retrieve() {
+        return new Promise<Hit[]>(() => {
+            return [] as Hit[]
+        })
     }
 }
 

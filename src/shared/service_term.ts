@@ -7,8 +7,8 @@ export type Term = {
     notes: number
 }
 
-class TermService extends Service {
-    async retrieveTags() {
+class TermService extends Service<Term> {
+    async retrieve(): Promise<Term[]> {
         return fetch(this.config.API_BASE_URL + "/v1/tags")
             .then(response => {
                 if (!response.ok) {
@@ -23,6 +23,11 @@ class TermService extends Service {
             .catch(error => {
                 this.handleError(error)
             })
+    }
+    async search() {
+        return new Promise<Term[]>(() => {
+            return [] as Term[]
+        })
     }
 }
 

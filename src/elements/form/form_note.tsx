@@ -5,7 +5,7 @@ import Editor from 'draft-js-plugins-editor'
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin'
 import './form_note.scss'
-import SearchService from '../../shared/service_search'
+import SearchService, { Hit } from '../../shared/service_search'
 import TermService, { Term } from '../../shared/service_term';
 import { Button, FormTitle } from '@amsterdam/asc-ui';
 import NoteService, { Note } from '../../shared/service_note'
@@ -141,7 +141,7 @@ class NoteForm extends React.Component<NoteFormProps> {
     }
 
     onSearchChange = (e: { value: string }) => {
-        this.searchService.searchAny(e.value).then((results: any[]) => {
+        this.searchService.search(e.value).then((results: Hit[]) => {
             this.setState({
                 suggestions: defaultSuggestionsFilter(e.value, results)
             })
@@ -167,7 +167,7 @@ class NoteForm extends React.Component<NoteFormProps> {
     }
 
     updateTags = () => {
-        this.termService.retrieveTags().then((result: Term[]) => {
+        this.termService.retrieve().then((result: Term[]) => {
             this.setState({ tags: result })
         })
     }

@@ -47,7 +47,7 @@ export class SchoolPage extends React.Component {
                 }} />
                 {this.state.filteredSchools.map((value: School) => (
                     <SchoolCard key={value.id} {...value} />
-                ))}
+                )).splice(1,5)}
             </section>
         )
     }
