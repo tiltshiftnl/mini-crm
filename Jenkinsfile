@@ -41,7 +41,7 @@ node {
     stage("Build develop image") {
         tryStep "build", {
             docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
-                image = docker.build("${CONTAINERNAME}","-f ${DOCKERFILE} ${CONTAINERDIR}")
+                image = docker.build("${CONTAINERNAME}","--build-arg API_URL=/api -f ${DOCKERFILE} ${CONTAINERDIR}")
                 image.push()
             }
         }
