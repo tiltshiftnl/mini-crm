@@ -22,7 +22,7 @@ export type School = {
     city?: string
 }
 
-class SchoolService extends Service {
+class SchoolService extends Service<School> {
     schools: School[] = []
 
     async retrieveSchool(id: number): Promise<School> {
@@ -42,7 +42,7 @@ class SchoolService extends Service {
             })
     }
 
-    async retrieveSchools() {
+    async retrieve(): Promise<School[]> {
         return fetch(this.config.API_BASE_URL + "/v1/schools")
             .then(response => {
                 if (!response.ok) {
@@ -59,7 +59,7 @@ class SchoolService extends Service {
             })
     }
 
-    async search(search: string) {
+    async search(search: string): Promise<School[]> {
         return fetch(this.config.API_BASE_URL + "/v1/schools/" + search)
             .then(response => {
                 if (!response.ok) {

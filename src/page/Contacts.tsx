@@ -23,7 +23,7 @@ export class ContactPage extends React.Component {
 
     retrieveContacts = () => {
         if (this.filter !== "") {
-            this.contactService.searchContact(this.filter).then((results: Contact[]) => {
+            this.contactService.search(this.filter).then((results: Contact[]) => {
                 this.setState({ contacts: results, filteredContacts: results })
             })
         } else {

@@ -1,6 +1,6 @@
 import Configuration from "./configuration"
 
-export class Service {
+export abstract class Service<T> {
     config: Configuration
     constructor() {
         this.config = new Configuration()
@@ -12,4 +12,7 @@ export class Service {
     handleError(error: Error) {
         throw error
     }
+
+    abstract async search(value: string): Promise<T[]>
+    abstract async retrieve(): Promise<T[]>
 }
