@@ -3,32 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@amsterdam/asc-assets": "^0.25.0",
-    "@amsterdam/asc-ui": "^0.25.0",
+    "@amsterdam/asc-assets": "^0.25.2",
+    "@amsterdam/asc-ui": "^0.25.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/chance": "^1.1.0",
     "@types/draft-js": "^0.10.44",
     "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.61",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.5",
+    "@types/node": "^12.19.8",
+    "@types/react": "^16.14.2",
+    "@types/react-dom": "^16.9.10",
+    "@types/react-router-dom": "^5.1.6",
     "chance": "^1.1.7",
     "draft-js": "^0.11.7",
     "draft-js-hashtag-plugin": "^2.0.4",
     "draft-js-mention-plugin": "^3.1.5",
     "draft-js-plugins-editor": "^3.0.0",
-    "keycloak-js": "^11.0.2",
-    "moment": "^2.29.0",
+    "keycloak-js": "^11.0.3",
+    "moment": "^2.29.1",
     "node-sass": "^4.14.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
-    "styled-components": "^5.2.0",
-    "typescript": "^3.7.5"
+    "react-scripts": "4.0.0",
+    "styled-components": "^5.2.1",
+    "typescript": "^3.9.7"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,6 +52,6 @@
     ]
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.161"
+    "@types/lodash": "^4.14.165"
   }
 }
