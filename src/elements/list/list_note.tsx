@@ -1,4 +1,4 @@
-import { CompactPager, SearchBar } from '@amsterdam/asc-ui'
+import { SearchBar } from '@amsterdam/asc-ui'
 import moment from 'moment'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -181,7 +181,7 @@ export class NoteList extends React.Component<NoteListProps> {
                         {this.displayContactName(note)}
                         {this.colorNote(note)}
                     </div>
-                )).splice(this.state.currentPage, 5)}
+                ))}
             </div>
             {/* {this.state.filteredNotes.length > 20 &&
                 <CompactPager
