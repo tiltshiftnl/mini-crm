@@ -1,4 +1,4 @@
-import { SearchBar } from '@amsterdam/asc-ui'
+import { CompactPager, SearchBar } from '@amsterdam/asc-ui'
 import moment from 'moment'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -22,6 +22,7 @@ type NoteListState = {
 
 export class NoteList extends React.Component<NoteListProps> {
     filter = ""
+    pageSize = 8
     noteService: NoteService
     readonly state: NoteListState = {
         notes: [],
@@ -181,15 +182,15 @@ export class NoteList extends React.Component<NoteListProps> {
                         {this.displayContactName(note)}
                         {this.colorNote(note)}
                     </div>
-                ))}
+                )).splice((this.state.currentPage -1) * this.pageSize, this.pageSize)}
             </div>
-            {/* {this.state.filteredNotes.length > 20 &&
+            {this.state.filteredNotes.length > 5 &&
                 <CompactPager
                     page={this.state.currentPage}
-                    pageSize={20}
+                    pageSize={this.pageSize}
                     collectionSize={this.state.filteredNotes.length}
                     onPageChange={(page) => this.setCurrentPage(page)}
-                />} */}
+                />}
         </>
     }
 
