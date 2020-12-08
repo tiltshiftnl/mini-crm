@@ -3,8 +3,8 @@
         color: #000;
         cursor: pointer;
         background-color: #e6e6e6;
-        margin: 3px;
-        padding: 4px 8px;
+        margin: 0;
+        padding: 0 2px;
 
         &:hover {
             color: #fff;
@@ -15,7 +15,9 @@
             content: "#";
         }
     }
-
+    div {
+        line-height: 20px;
+    }
     .contact {
         color: #1461a0;
         text-decoration: underline;
