@@ -13,6 +13,6 @@ export abstract class Service<T> {
         throw error
     }
 
-    abstract async search(value: string): Promise<T[]>
-    abstract async retrieve(): Promise<T[]>
+    abstract search(value: string): Promise<T[]>
+    abstract retrieve(): Promise<T[]>
 }

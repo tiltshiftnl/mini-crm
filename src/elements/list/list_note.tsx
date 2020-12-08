@@ -37,7 +37,7 @@ export class NoteList extends React.Component<NoteListProps> {
     }
 
     componentDidUpdate = (prevProps: NoteListProps) => {
-        if(prevProps.contact !== this.props.contact) {
+        if (prevProps.contact !== this.props.contact) {
             this.retrieveNotes("")
         }
     }
@@ -167,7 +167,7 @@ export class NoteList extends React.Component<NoteListProps> {
     render() {
         return <>
             {!this.props.hideSearch &&
-                <SearchBar  className="disable-button" placeholder="Notities filteren..." onChange={(e) => {
+                <SearchBar className="disable-button" placeholder="Notities filteren..." onChange={(e) => {
                     this.handleSearchInput(e)
                 }} onClear={() => {
                     this.retrieveNotes("")
@@ -183,12 +183,13 @@ export class NoteList extends React.Component<NoteListProps> {
                     </div>
                 )).splice(this.state.currentPage, 5)}
             </div>
-            <CompactPager
-      page={this.state.currentPage}
-      pageSize={20}
-      collectionSize={60}
-      onPageChange={(page) => this.setCurrentPage(page)}
-    />
+            {/* {this.state.filteredNotes.length > 20 &&
+                <CompactPager
+                    page={this.state.currentPage}
+                    pageSize={20}
+                    collectionSize={this.state.filteredNotes.length}
+                    onPageChange={(page) => this.setCurrentPage(page)}
+                />} */}
         </>
     }
 
