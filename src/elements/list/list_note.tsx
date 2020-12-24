@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { Contact } from '../../shared/service_contact'
 import NoteService, { Note } from '../../shared/service_note'
 import { School } from '../../shared/service_school'
+import { Term } from '../../shared/service_term'
 import { extractHashtagsWithIndices } from '../../utils'
 import './list.scss'
 
@@ -71,7 +72,8 @@ export class NoteList extends React.Component<NoteListProps> {
                     filteredNotes: notes.filter((note: Note) => {
                         return note.note.toLowerCase().indexOf(this.filter) !== -1
                     }),
-                    notes: notes
+                    notes: notes,
+                    currentPage: 1
                 })
             })
         }
@@ -165,6 +167,50 @@ export class NoteList extends React.Component<NoteListProps> {
         }
         return ""
     }
+
+    displayNoteContacts = (note: Note) => {
+        if (note.contacts && note.contacts.length > 0) {
+            return <div>
+                {note.contacts.map((contact: Contact) => {
+                    return <Link key={contact.name} className="note-contact" to={{
+                        pathname: "/contact/" + contact.id,
+                        state: {
+                            contact: contact
+                        }
+                    }}>{contact.name}</Link>
+                })}
+            </div>
+        }
+        return <></>
+    }
+
+    displayNoteTags = (note: Note) => {
+        if (note.tags && note.tags.length > 0) {
+            return <div className="tag-list">
+                {note.tags.map((term: Term) => {
+                    return <div key={term.id} className="tag tag-pad">{term.tag}</div>
+                })}
+            </div>
+        }
+        return <></>
+    }
+
+    displayNoteSchools = (note: Note) => {
+        if (note.schools && note.schools.length > 0) {
+            return <div>
+                {note.schools.map((school: School) => {
+                    return <Link key={school.id} className="school" to={{
+                        pathname: "/school/" + school.id,
+                        state: {
+                            school
+                        }
+                    }}>{school.name}</Link>
+                })}
+            </div>
+        }
+        return <></>
+    }
+
     render() {
         return <>
             {!this.props.hideSearch &&
@@ -176,13 +222,16 @@ export class NoteList extends React.Component<NoteListProps> {
             }
             <div className={'note-list'}>
                 {this.state.filteredNotes && this.state.filteredNotes.map((note: Note) => (
-                    <div key={`note_${note.start}`}>
+                    <div key={`note_${note.id}`}>
                         {this.displayDateTime(note.start)}
                         <span className="note-arrow" />
                         {this.displayContactName(note)}
                         {this.colorNote(note)}
+                        {this.displayNoteContacts(note)}
+                        {this.displayNoteSchools(note)}
+                        {this.displayNoteTags(note)}
                     </div>
-                )).splice((this.state.currentPage -1) * this.pageSize, this.pageSize)}
+                )).splice((this.state.currentPage - 1) * this.pageSize, this.pageSize)}
             </div>
             {this.state.filteredNotes.length > 5 &&
                 <CompactPager

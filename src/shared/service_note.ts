@@ -1,6 +1,7 @@
 import { Service } from "./service"
 import { Contact } from "./service_contact"
 import { School } from "./service_school"
+import { Term } from "./service_term";
 
 export type Note = {
     id: number
@@ -9,9 +10,9 @@ export type Note = {
     contact_id?: number
     start?: string
     end?: string
-    tags?: string[]
-    schools?: number[] | School[]
-    contacts?: number[] | Contact[]
+    tags?: Term[]
+    schools?: School[]
+    contacts?: Contact[]
 }
 
 class NoteService extends Service<Note>{
