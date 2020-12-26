@@ -13,7 +13,7 @@ class SearchService extends Service<Hit> {
         if (search.length === 0) {
             return []
         }
-        return fetch(this.config.API_BASE_URL + "/v1/search/" + search)
+        return fetch(this.config.API_BASE_URL + "/v1/search/" + search, {credentials: 'include'})
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)

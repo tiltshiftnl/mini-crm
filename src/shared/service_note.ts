@@ -17,7 +17,7 @@ export type Note = {
 class NoteService extends Service<Note>{
     async retrieve(): Promise<Note[]> {
         var uri = this.config.API_BASE_URL + "/v2/notes";
-        return fetch(uri)
+        return fetch(uri, {credentials: 'include'})
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -41,7 +41,7 @@ class NoteService extends Service<Note>{
 
     async retrieveNotesContact(contact: Contact) {
         var uri = this.config.API_BASE_URL + "/v2/contact/" + contact.id + "/notes";
-        return fetch(uri)
+        return fetch(uri, {credentials: 'include'})
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -59,7 +59,7 @@ class NoteService extends Service<Note>{
 
     async retrieveNotesSchool(school: School) {
         var uri = this.config.API_BASE_URL + "/v2/school/" + school.id + "/notes";
-        return fetch(uri)
+        return fetch(uri, {credentials: 'include'})
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -82,7 +82,8 @@ class NoteService extends Service<Note>{
                 body: JSON.stringify(note),
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
-                }
+                },
+                credentials: 'include'
             })
             .then(response => {
                 if (!response.ok) {

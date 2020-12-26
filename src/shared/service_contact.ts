@@ -11,7 +11,7 @@ class ContactService extends Service<Contact> {
     contacts: Contact[] = []
 
     async retrieveContact(id: number): Promise<Contact> {
-        return fetch(this.config.API_BASE_URL + "/v1/contact/" + id)
+        return fetch(this.config.API_BASE_URL + "/v1/contact/" + id, {credentials: 'include'})
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -28,7 +28,7 @@ class ContactService extends Service<Contact> {
     }
 
     async retrieve(): Promise<Contact[]> {
-        return fetch(this.config.API_BASE_URL + "/v1/contacts")
+        return fetch(this.config.API_BASE_URL + "/v1/contacts", {credentials: 'include'})
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -45,7 +45,7 @@ class ContactService extends Service<Contact> {
     }
 
     async search(search: string): Promise<Contact[]> {
-        return fetch(this.config.API_BASE_URL + "/v1/contacts/" + search)
+        return fetch(this.config.API_BASE_URL + "/v1/contacts/" + search, {credentials: 'include'})
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -62,7 +62,7 @@ class ContactService extends Service<Contact> {
     }
 
     async searchByPhone(search: string): Promise<Contact[]> {
-        return fetch(this.config.API_BASE_URL + "/v2/phone/" + search)
+        return fetch(this.config.API_BASE_URL + "/v2/phone/" + search, {credentials: 'include'})
             .then(response => {
                 if (!response.ok) {
                     this.handleResponseError(response)
@@ -85,7 +85,8 @@ class ContactService extends Service<Contact> {
                 body: JSON.stringify(contact),
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
-                }
+                },
+                credentials: 'include'
             })
             .then(response => {
                 if (!response.ok) {
